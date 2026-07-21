@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>顾树昊｜AI 测试开发一页简历</title>
+  <style>
+    :root { --ink:#242930; --muted:#5f6875; --line:#cfd6df; --brand:#087f82; --soft:#f4f8f9; }
+    * { box-sizing:border-box; }
+    @page { size:A4; margin:0; }
+    body { margin:0; background:#e9edf2; color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif; }
+    .page { width:210mm; min-height:297mm; margin:18px auto; padding:10.5mm 12mm 9mm; background:#fff; box-shadow:0 10px 30px rgba(25,35,50,.14); }
+    .header { display:grid; grid-template-columns:1fr 22mm; gap:5mm; align-items:start; padding-bottom:3.2mm; border-bottom:1px solid var(--line); }
+    h1 { margin:0 0 1.4mm; text-align:center; color:#111827; font-size:23pt; line-height:1.05; letter-spacing:.12em; }
+    .contact,.target { text-align:center; font-size:9.2pt; line-height:1.5; }
+    .target { margin-top:1mm; color:var(--brand); font-weight:800; }
+    .photo { width:21mm; height:27mm; object-fit:cover; object-position:center top; border:1px solid #d5dbe3; border-radius:2mm; }
+    section { margin-top:3.2mm; }
+    h2 { margin:0 0 1.8mm; padding-bottom:1mm; border-bottom:1px solid var(--line); color:#111827; font-size:12.8pt; line-height:1.2; }
+    .summary { padding:2.2mm 3mm; border-left:1.1mm solid var(--brand); background:var(--soft); font-size:8.7pt; line-height:1.58; text-align:justify; text-justify:inter-ideograph; }
+    .job { padding:2.2mm 0 2.3mm; border-bottom:1px solid #e5e9ee; }
+    .job:last-child { border-bottom:0; padding-bottom:0; }
+    .head { display:grid; grid-template-columns:8mm 1fr auto; gap:2mm; align-items:center; }
+    .logo { width:7mm; height:7mm; object-fit:contain; border-radius:1.2mm; }
+    .company { font-size:10.2pt; font-weight:900; color:#2c323a; }
+    .role { margin-left:2mm; font-size:8.6pt; color:#424b57; font-weight:650; }
+    .date { white-space:nowrap; font-size:8.4pt; color:var(--muted); }
+    .tags { margin:.8mm 0 1mm 10mm; font-size:7.6pt; color:var(--muted); line-height:1.35; }
+    ul { margin:0; padding-left:14mm; }
+    li { margin:.8mm 0; padding-left:.6mm; font-size:8.25pt; line-height:1.52; text-align:justify; text-justify:inter-ideograph; }
+    .compact { display:grid; grid-template-columns:1fr auto; gap:3mm; font-size:8.25pt; line-height:1.45; }
+    .compact strong { color:#111827; }
+    .skills { display:grid; grid-template-columns:1fr 1fr; gap:1.2mm 5mm; font-size:8.1pt; line-height:1.45; }
+    .skills strong { color:#111827; }
+    .edu { display:grid; grid-template-columns:1.05fr 1fr auto; gap:3mm; font-size:8.4pt; line-height:1.45; }
+    .edu + .edu { margin-top:.8mm; }
+    .school { font-weight:850; }
+    .local-jumps { position:fixed; right:10px; bottom:10px; display:flex; gap:5px; align-items:center; z-index:20; }
+    .local-jump { width:22px; height:22px; border:1px solid rgba(8,127,130,.25); border-radius:50%; display:grid; place-items:center; color:rgba(8,100,102,.72); background:rgba(255,255,255,.94); text-decoration:none; font:800 10px/1 Arial,sans-serif; box-shadow:0 2px 6px rgba(20,35,60,.08); opacity:.72; }
+    .local-jump:hover { opacity:1; transform:scale(1.08); }
+    @media print { body{background:#fff}.page{margin:0;box-shadow:none}.local-jumps{display:none!important} }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <div>
+        <h1>顾树昊</h1>
+        <div class="contact">男｜27 届硕士｜13761056216（微信同）｜1595916384@qq.com</div>
+        <div class="target">求职方向：AI 测试开发 / Agent 质量工程 / 大模型应用评测</div>
+      </div>
+      <img class="photo" src="assets/profile-photo.jpg" alt="顾树昊证件照" />
+    </header>
+
+    <section>
+      <h2>个人优势</h2>
+      <div class="summary">具备大模型应用与 Agent 产品质量工程实践，覆盖 Browser Agent 工具开发、YAML E2E、效果与长期记忆评测、Trace/Artifact 取证、失败归因、性能稳定性及多端发版质量；能够把非确定性模型行为拆成可执行用例、分层断言、Badcase 与回归证据。</div>
+    </section>
+
+    <section>
+      <h2>实习经历</h2>
+      <article class="job">
+        <div class="head"><img class="logo" src="assets/baidu-color.svg" alt="百度 logo" /><div><span class="company">百度（中国）有限公司</span><span class="role">DuMate AI 测试开发实习生</span></div><span class="date">2026.03 - 至今</span></div>
+        <div class="tags">Agent 质量工程｜YAML DSL｜Electron E2E｜Trace/Artifact｜多端与发版质量</div>
+        <ul>
+          <li>参与 DuMate 通用 Agent 产品质量保障，围绕账号/租户、上下文、Skill/插件/MCP、Browseruse、文件与沙箱权限，按“前置状态—工具执行—状态变化—结果/副作用—恢复清理”组织端到端验证。</li>
+          <li>参与桌面端 E2E case 与执行流程建设，采用“模型生成 YAML + 确定性 Runner 执行”，串联 schema、ScenarioRunner、StepExecutor、ProductAdapter、assertion、cleanup 与 report；覆盖多任务并行、中断恢复、工作区/会话隔离等场景。</li>
+          <li>结合 result、日志、截图、环境快照和步骤状态区分产品、case/schema、框架、权限环境与 flaky 问题；参与长上下文、异步任务、埋点及鸿蒙多设备回归，Mate 80 轮次汇总 78 个测试点（67 通过、3 失败、8 待确认）。</li>
+        </ul>
+      </article>
+
+      <article class="job">
+        <div class="head"><img class="logo" src="assets/bilibili-avatar.png" alt="哔哩哔哩 logo" /><div><span class="company">上海幻电信息科技有限公司</span><span class="role">AI WebUI / Browser Agent 测试开发实习生</span></div><span class="date">2025.11 - 2026.03</span></div>
+        <div class="tags">Browser-Use｜Context Engineering｜Action/Tool｜Agent Loop｜Playwright</div>
+        <ul>
+          <li>参与 Browser-Use 二次开发，将自然语言测试文档转换为“页面状态—LLM 规划—结构化 Action—工具执行—断言—脚本/产物”的执行链路，扩展 Controller/Action、DOM/JS 注入、XPath 映射和 Playwright 脚本生成。</li>
+          <li>优化直播 Web 房间页上下文与动作工具，补齐 hover、可见性等待点击等能力；固定关键组件集识别成功率达 90%+，所覆盖核心链路端到端执行成功率达 100%。</li>
+          <li>通过有限重试、最大步数、动作约束与人工兜底控制 Agent Loop；以 DOM 快照、模型决策、Action 参数、日志、截图/GIF 和断言结果支持回放归因，并通过上下文裁剪将平均单步耗时由 20s+ 降至约 9s。</li>
+        </ul>
+      </article>
+
+      <article class="job">
+        <div class="head"><img class="logo" src="assets/aiq-energy-logo.png" alt="艾麒信息 logo" /><div><span class="company">上海艾麒信息科技股份有限公司</span><span class="role">AI 服务质量 / 大模型应用评测实习生</span></div><span class="date">2025.09 - 2025.11</span></div>
+        <div class="tags">长期记忆｜多模态问答｜模型效果｜服务性能稳定性｜HTML 报告</div>
+        <ul>
+          <li>参与多模态数字人、AI 语聊和教育问答质量验证，按输入/OCR、模型推理、业务编排、输出格式和用户可用性分层设计用例与 Badcase 分类。</li>
+          <li>构建“记忆注入—干扰对话—回溯验证”自动化评估，覆盖记忆写入、更新、歧义和推理类回忆，开发多用户并发引擎并输出匹配准确率、效率与衰减趋势 HTML 报告。</li>
+          <li>执行 60 并发、60 分钟模型服务耐力测试，统计成功率、响应时间和异常返回，关联 CPU/内存曲线观察延迟抖动、超时与资源瓶颈。</li>
+        </ul>
+      </article>
+    </section>
+
+    <section>
+      <h2>补充开发经历</h2>
+      <div class="compact"><span><strong>上海锋滔资产管理有限公司｜全栈开发实习生：</strong>参与 Vue 3 + Flask + PostgreSQL 量化研究平台的接口、数据建模、管理端与联调交付。</span><span class="date">2025.06 - 2025.09</span></div>
+    </section>
+
+    <section>
+      <h2>核心技能</h2>
+      <div class="skills">
+        <div><strong>Agent/自动化：</strong>Browser-Use、Playwright、Electron E2E、YAML DSL、Retry/Stop</div>
+        <div><strong>质量/评测：</strong>Trace/Artifact、Badcase、长期记忆、P95/P99、人工复核</div>
+        <div><strong>开发：</strong>Python/Flask、TypeScript/Node.js、Vue 3、RESTful API</div>
+        <div><strong>数据：</strong>PostgreSQL、SQLAlchemy、HTML 报告、日志与环境快照</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>教育经历</h2>
+      <div class="edu"><span class="school">上海理工大学</span><span>硕士｜计算机科学与技术</span><span>2024.09 - 2027.06</span></div>
+      <div class="edu"><span class="school">上海工程技术大学</span><span>本科｜数据科学与大数据技术</span><span>2020.09 - 2024.06</span></div>
+    </section>
+
+  </main>
+  <nav class="local-jumps" aria-label="公开简历页面跳转">
+    <a class="local-jump" href="index.html" aria-label="返回完整在线版" title="完整在线版">↩</a>
+  </nav>
+</body>
+</html>
