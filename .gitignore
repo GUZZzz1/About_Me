@@ -1,5 +1,6 @@
 .DS_Store
 Thumbs.db
+node_modules/
 
 # 私有补齐与投递材料不得进入公开仓库
 *补齐与投递策略*
