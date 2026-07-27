@@ -44,12 +44,12 @@ const capabilityData = [
 ];
 
 const atlasLayout = {
-  "dev-python": [5, 45], "dev-ts": [15, 45], "dev-vue": [5, 63],
+  "dev-python": [5, 45], "dev-ts": [16, 45], "dev-vue": [5, 63],
   "dev-rest": [5, 81], "dev-data": [15, 93], "dev-browseruse": [27, 93],
   "dev-dom": [38, 82], "dev-playwright": [38, 65], "dev-report": [32, 49],
-  "test-yaml": [68, 48], "test-schema": [78, 48], "test-trace": [89, 45],
-  "test-failure": [95, 45], "test-release": [62, 63], "test-mobile": [95, 62],
-  "test-telemetry": [62, 80], "test-permission": [95, 79], "test-state": [66, 92],
+  "test-yaml": [67, 48], "test-schema": [79, 48], "test-trace": [88, 40],
+  "test-failure": [96, 50], "test-release": [62, 63], "test-mobile": [96, 65],
+  "test-telemetry": [61, 79], "test-permission": [96, 80], "test-state": [66, 94],
   "test-context": [77, 92], "test-performance": [88, 92], "test-api": [82, 77],
   "ai-browser": [5, 7], "ai-context": [16, 7], "ai-loop": [27, 7],
   "ai-memory": [73, 7], "ai-multimodal": [84, 7], "ai-judge": [95, 7],
@@ -194,7 +194,8 @@ capabilityData.forEach((item, index) => {
   node.dataset.id = item.id;
   node.style.setProperty("--x", `${x}%`);
   node.style.setProperty("--y", `${y}%`);
-  node.style.setProperty("--size", index % 4 === 0 ? "102px" : "92px");
+  const levelSize = { practice: 112, design: 86, study: 64 };
+  node.style.setProperty("--size", `${levelSize[item.level] || 92}px`);
   node.style.setProperty("--float-duration", `${5.8 + index % 5 * .55}s`);
   node.style.setProperty("--float-delay", `${-(index % 9) * .42}s`);
   node.innerHTML = `<span class="node-code">${groupMeta[item.group].code} · ${String(index + 1).padStart(2, "0")}</span><strong>${item.title}</strong><small>${item.short}</small>`;
@@ -351,198 +352,280 @@ const revealTargets = [...document.querySelectorAll([
   ".capability-overview",
   ".atlas-toolbar",
   ".atlas-viewport",
+  ".why-section .section-heading",
+  ".why-content",
   ".experience-heading",
   ".experience-track",
-  ".resume-band > *",
+  ".life-heading",
+  ".life-toolbar",
+  ".life-card",
+  ".resume-band",
   ".site-footer > *"
 ].join(","))];
 
 if (!reducedMotion && "IntersectionObserver" in window) {
   document.documentElement.classList.add("motion-ready");
+  let revealScrollY = window.scrollY;
+  let revealDirection = "down";
+  const revealFrameIds = new WeakMap();
+
+  window.addEventListener("scroll", () => {
+    const nextScrollY = window.scrollY;
+    const distance = nextScrollY - revealScrollY;
+    if (Math.abs(distance) >= 3) revealDirection = distance > 0 ? "down" : "up";
+    revealScrollY = nextScrollY;
+  }, { passive: true });
+
   const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("is-in-view");
-      revealObserver.unobserve(entry.target);
+      const target = entry.target;
+      const pendingFrame = revealFrameIds.get(target);
+      if (pendingFrame) window.cancelAnimationFrame(pendingFrame);
+
+      if (entry.isIntersecting && entry.intersectionRatio >= .12) {
+        target.dataset.revealDirection = revealDirection;
+        revealFrameIds.set(target, window.requestAnimationFrame(() => {
+          target.classList.add("is-in-view");
+          revealFrameIds.delete(target);
+        }));
+      } else if (!entry.isIntersecting) {
+        target.classList.remove("is-in-view");
+        revealFrameIds.delete(target);
+      }
     });
-  }, { threshold: .12, rootMargin: "0px 0px -7%" });
+  }, { threshold: [0, .12], rootMargin: "-4% 0px" });
 
   revealTargets.forEach((target, index) => {
     target.classList.add("motion-reveal");
+    target.dataset.revealDirection = "down";
     target.style.setProperty("--reveal-delay", `${index % 4 * 90}ms`);
     revealObserver.observe(target);
   });
 }
 
 const photoPrism = document.querySelector("#photo-prism");
-const photoPrismStage = photoPrism.querySelector(".photo-prism-stage");
-const photoPrismCards = [...photoPrism.querySelectorAll(".photo-prism-card")];
-const photoPrismCounter = photoPrism.querySelector(".photo-prism-counter");
-let activePhotoIndex = 0;
-let photoDirection = 1;
-let photoDragStartX = 0;
-let photoDragX = 0;
-let photoDragging = false;
-let suppressPhotoClick = false;
-let photoHovering = false;
-let photoHoverX = 0;
-let photoHoverY = 0;
-let photoCycleTimer;
+const photoPrismTrack = photoPrism.querySelector(".photo-prism-track");
+const photoSources = [...document.querySelectorAll(".life-card img")].map(image => {
+  const card = image.closest(".life-card");
+  return {
+    src: image.getAttribute("src"),
+    alt: image.alt,
+    category: card?.querySelector("span")?.textContent || "影像记录",
+    title: card?.querySelector("strong")?.textContent || image.alt
+  };
+});
 
-function photoOffset(index) {
-  if (index === activePhotoIndex) return 0;
-  if (photoPrismCards.length === 2) return photoDirection;
-  let offset = index - activePhotoIndex;
-  const midpoint = photoPrismCards.length / 2;
-  if (offset > midpoint) offset -= photoPrismCards.length;
-  if (offset < -midpoint) offset += photoPrismCards.length;
-  return offset;
-}
-
-function renderPhotoPrism() {
-  const compact = window.innerWidth <= 700;
-  const spacing = compact ? 134 : 176;
-  photoPrismCards.forEach((card, index) => {
-    const offset = photoOffset(index);
-    const distance = Math.abs(offset);
-    const active = distance === 0;
-    const dragInfluence = active ? photoDragX : photoDragX * .32;
-    const hoverDepth = active ? 1 : 1.65;
-    const hoverTranslateX = photoHovering ? photoHoverX * 9 * hoverDepth : 0;
-    const hoverTranslateY = photoHovering ? photoHoverY * 4 * hoverDepth : 0;
-    card.style.setProperty("--photo-x", `${offset * spacing + dragInfluence + hoverTranslateX}px`);
-    card.style.setProperty("--photo-y", `${distance * 9 + hoverTranslateY}px`);
-    card.style.setProperty("--photo-z", `${distance * -90}px`);
-    card.style.setProperty("--photo-rx", `${photoHovering ? photoHoverY * (active ? 2.4 : 4.8) : 0}deg`);
-    card.style.setProperty("--photo-ry", `${offset * -28 + photoDragX * .045 - photoHoverX * (active ? 3 : 6.5)}deg`);
-    card.style.setProperty("--photo-rz", `${offset * -2 + photoHoverX * (active ? .6 : 1.2)}deg`);
-    card.style.setProperty("--photo-scale", String(active ? 1 : Math.max(.58, .82 - (distance - 1) * .12)));
-    card.style.setProperty("--photo-opacity", String(active ? 1 : Math.max(.14, .66 - (distance - 1) * .2)));
-    card.style.setProperty("--photo-filter", active ? "saturate(.96) brightness(.9)" : "saturate(.78) brightness(.68)");
-    card.style.zIndex = String(10 - distance);
-    card.classList.toggle("is-active", active);
-    card.setAttribute("aria-current", active ? "true" : "false");
+function createPhotoGroup(hidden = false) {
+  const group = document.createElement("div");
+  group.className = "photo-prism-group";
+  if (hidden) group.setAttribute("aria-hidden", "true");
+  photoSources.forEach(photo => {
+    const frame = document.createElement("span");
+    frame.className = "photo-prism-card";
+    frame.tabIndex = 0;
+    frame.setAttribute("role", "button");
+    frame.setAttribute("aria-label", `放大预览：${photo.title}`);
+    const image = new Image();
+    image.src = photo.src;
+    image.alt = hidden ? "" : photo.alt;
+    image.loading = "lazy";
+    image.decoding = "async";
+    frame.append(image);
+    group.append(frame);
   });
-  photoPrismCounter.textContent = `${String(activePhotoIndex + 1).padStart(2, "0")} / ${String(photoPrismCards.length).padStart(2, "0")}`;
+  return group;
 }
 
-function stopPhotoCycle() {
-  window.clearTimeout(photoCycleTimer);
+if (photoSources.length) {
+  photoPrismTrack.append(createPhotoGroup(), createPhotoGroup(true));
+  photoPrism.style.setProperty("--photo-duration", `${Math.max(40, photoSources.length * 2.4)}s`);
+  photoPrism.querySelector("[data-photo-total]").textContent = String(photoSources.length).padStart(2, "0");
 }
 
-function schedulePhotoCycle() {
-  stopPhotoCycle();
-  const interactionPaused = photoDragging
-    || photoPrism.matches(":hover")
-    || photoPrism.contains(document.activeElement);
-  if (reducedMotion || document.hidden || interactionPaused || photoPrismCards.length < 2) return;
-  photoCycleTimer = window.setTimeout(() => shiftPhoto(1), 4800);
+function bindHoverPause(container, itemSelector) {
+  const findItem = target => target instanceof Element ? target.closest(itemSelector) : null;
+
+  container.addEventListener("pointerover", event => {
+    const item = findItem(event.target);
+    if (item && container.contains(item)) container.classList.add("is-paused");
+  });
+
+  container.addEventListener("pointerout", event => {
+    const fromItem = findItem(event.target);
+    const toItem = findItem(event.relatedTarget);
+    if (fromItem && (!toItem || !container.contains(toItem))) container.classList.remove("is-paused");
+  });
+
+  container.addEventListener("focusin", event => {
+    if (findItem(event.target)) container.classList.add("is-paused");
+  });
+
+  container.addEventListener("focusout", event => {
+    if (!findItem(event.relatedTarget)) container.classList.remove("is-paused");
+  });
 }
 
-function shiftPhoto(direction) {
-  photoDirection = direction;
-  activePhotoIndex = (activePhotoIndex + direction + photoPrismCards.length) % photoPrismCards.length;
-  photoDragX = 0;
-  renderPhotoPrism();
-  schedulePhotoCycle();
-}
+bindHoverPause(photoPrism, ".photo-prism-card");
 
-photoPrismCards.forEach((card, index) => {
-  card.addEventListener("click", event => {
-    if (suppressPhotoClick) {
-      event.preventDefault();
-      return;
-    }
-    if (index === activePhotoIndex) return;
-    photoDirection = index > activePhotoIndex ? 1 : -1;
-    activePhotoIndex = index;
-    renderPhotoPrism();
-    schedulePhotoCycle();
+const lifeGallery = document.querySelector(".life-gallery");
+const lifeGalleryTrack = lifeGallery.querySelector(".life-gallery-track");
+const lifeGrid = lifeGallery.querySelector(".life-grid");
+const lifeCards = [...lifeGrid.children].filter(card => card.classList.contains("life-card"));
+lifeCards.forEach(card => {
+  card.tabIndex = 0;
+  card.setAttribute("role", "button");
+  card.setAttribute("aria-label", `放大预览：${card.querySelector("strong")?.textContent || "照片"}`);
+});
+const lifeGridClone = lifeGrid.cloneNode(true);
+lifeGridClone.classList.add("life-grid--clone");
+lifeGridClone.setAttribute("aria-hidden", "true");
+lifeGridClone.querySelectorAll(".life-card").forEach(card => {
+  card.tabIndex = -1;
+  card.classList.remove("motion-reveal", "is-in-view");
+  card.removeAttribute("data-reveal-direction");
+  card.style.removeProperty("--reveal-delay");
+});
+lifeGalleryTrack.append(lifeGridClone);
+const clonedLifeCards = [...lifeGridClone.querySelectorAll(".life-card")];
+const renderedLifeCards = [...lifeCards, ...clonedLifeCards];
+bindHoverPause(lifeGallery, ".life-card");
+
+const lifeFilterButtons = [...document.querySelectorAll("[data-life-filter]")];
+const lifeThemeCounts = lifeCards.reduce((counts, card) => {
+  const theme = card.dataset.lifeTheme;
+  counts[theme] = (counts[theme] || 0) + 1;
+  counts.all += 1;
+  return counts;
+}, { all: 0 });
+
+lifeFilterButtons.forEach(button => {
+  const filter = button.dataset.lifeFilter;
+  const count = lifeThemeCounts[filter] || 0;
+  const countLabel = button.querySelector("[data-life-count]");
+  if (countLabel) countLabel.textContent = String(count);
+  if (filter !== "all" && count === 0) button.disabled = true;
+});
+
+lifeFilterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const filter = button.dataset.lifeFilter;
+    lifeFilterButtons.forEach(item => item.classList.toggle("is-active", item === button));
+    renderedLifeCards.forEach(card => {
+      const visible = filter === "all" || card.dataset.lifeTheme === filter;
+      card.hidden = !visible;
+    });
+    lifeGallery.classList.add("is-resetting");
+    lifeGallery.style.setProperty("--life-duration", `${Math.max(32, (lifeThemeCounts[filter] || 1) * 3.1)}s`);
+    window.requestAnimationFrame(() => lifeGallery.classList.remove("is-resetting"));
   });
 });
 
-photoPrism.querySelector(".photo-prism-prev").addEventListener("click", () => shiftPhoto(-1));
-photoPrism.querySelector(".photo-prism-next").addEventListener("click", () => shiftPhoto(1));
+lifeGallery.style.setProperty("--life-duration", `${Math.max(32, lifeThemeCounts.all * 3.1)}s`);
 
-photoPrismStage.addEventListener("pointerdown", event => {
-  if (event.pointerType === "mouse") return;
-  photoDragging = true;
-  photoPrismStage.classList.add("is-dragging");
-  suppressPhotoClick = false;
-  photoDragStartX = event.clientX;
-  photoDragX = 0;
-  photoPrismStage.setPointerCapture(event.pointerId);
-  stopPhotoCycle();
-});
+const lifeSpeedControls = [...lifeGallery.querySelectorAll("[data-life-speed]")];
+let lifeBoostTimer = null;
+let lifeBoostControl = null;
 
-photoPrismStage.addEventListener("pointermove", event => {
-  if (photoDragging) {
-    photoDragX = event.clientX - photoDragStartX;
-    if (Math.abs(photoDragX) > 8) suppressPhotoClick = true;
-    renderPhotoPrism();
+function setLifePlaybackRate(rate) {
+  lifeGallery.dataset.playbackRate = String(rate);
+  const animation = lifeGalleryTrack.getAnimations()[0];
+  if (!animation) return;
+  if (typeof animation.updatePlaybackRate === "function") animation.updatePlaybackRate(rate);
+  else animation.playbackRate = rate;
+}
+
+function applyLifePlaybackRate() {
+  const engagedControl = lifeBoostControl
+    || lifeSpeedControls.find(button => button.matches(":hover"))
+    || lifeSpeedControls.find(button => button.matches(":focus-visible"));
+  if (!engagedControl) {
+    setLifePlaybackRate(1);
     return;
   }
-  if (event.pointerType && event.pointerType !== "mouse") return;
-
-  const rect = photoPrismStage.getBoundingClientRect();
-  const positionX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-  const positionY = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
-  photoHovering = true;
-  photoHoverX = (positionX - .5) * 2;
-  photoHoverY = (positionY - .5) * 2;
-  photoPrismStage.classList.add("is-hovering");
-
-  const hoveredIndex = Math.min(photoPrismCards.length - 1, Math.floor(positionX * photoPrismCards.length));
-  if (hoveredIndex !== activePhotoIndex) {
-    const boundary = (Math.min(activePhotoIndex, hoveredIndex) + 1) / photoPrismCards.length;
-    const crossedBoundary = hoveredIndex > activePhotoIndex
-      ? positionX > boundary + .06
-      : positionX < boundary - .06;
-    if (crossedBoundary) {
-      photoDirection = hoveredIndex > activePhotoIndex ? 1 : -1;
-      activePhotoIndex = hoveredIndex;
-    }
-  }
-  renderPhotoPrism();
-});
-
-function finishPhotoDrag(event) {
-  if (!photoDragging) return;
-  photoDragging = false;
-  photoPrismStage.classList.remove("is-dragging");
-  if (photoPrismStage.hasPointerCapture(event.pointerId)) photoPrismStage.releasePointerCapture(event.pointerId);
-  if (Math.abs(photoDragX) >= 36) {
-    shiftPhoto(photoDragX < 0 ? 1 : -1);
-  } else {
-    photoDragX = 0;
-    renderPhotoPrism();
-    schedulePhotoCycle();
-  }
-  window.setTimeout(() => { suppressPhotoClick = false; }, 0);
+  const direction = Number(engagedControl.dataset.lifeSpeed) || 1;
+  setLifePlaybackRate(direction * (engagedControl === lifeBoostControl ? 5 : 2.4));
 }
 
-photoPrismStage.addEventListener("pointerup", finishPhotoDrag);
-photoPrismStage.addEventListener("pointercancel", finishPhotoDrag);
-photoPrism.addEventListener("pointerenter", stopPhotoCycle);
-photoPrism.addEventListener("pointerleave", () => {
-  photoHovering = false;
-  photoHoverX = 0;
-  photoHoverY = 0;
-  photoPrismStage.classList.remove("is-hovering");
-  renderPhotoPrism();
-  schedulePhotoCycle();
+lifeSpeedControls.forEach(button => {
+  button.addEventListener("pointerenter", applyLifePlaybackRate);
+  button.addEventListener("pointerleave", applyLifePlaybackRate);
+  button.addEventListener("focus", applyLifePlaybackRate);
+  button.addEventListener("blur", applyLifePlaybackRate);
+  button.addEventListener("click", () => {
+    window.clearTimeout(lifeBoostTimer);
+    lifeBoostControl?.classList.remove("is-boosting");
+    lifeBoostControl = button;
+    button.classList.add("is-boosting");
+    applyLifePlaybackRate();
+    lifeBoostTimer = window.setTimeout(() => {
+      button.classList.remove("is-boosting");
+      if (lifeBoostControl === button) lifeBoostControl = null;
+      applyLifePlaybackRate();
+    }, 900);
+  });
 });
-photoPrism.addEventListener("focusin", stopPhotoCycle);
-photoPrism.addEventListener("focusout", event => { if (!photoPrism.contains(event.relatedTarget)) schedulePhotoCycle(); });
-photoPrism.addEventListener("keydown", event => {
-  if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-  event.preventDefault();
-  shiftPhoto(event.key === "ArrowRight" ? 1 : -1);
+
+const photoLightbox = document.querySelector("#photo-lightbox");
+const photoLightboxImage = photoLightbox.querySelector("img");
+const photoLightboxCategory = photoLightbox.querySelector("figcaption span");
+const photoLightboxTitle = photoLightbox.querySelector("figcaption strong");
+const photoLightboxClose = photoLightbox.querySelector(".photo-lightbox-close");
+const photoLightboxPrevious = photoLightbox.querySelector(".photo-lightbox-nav--previous");
+const photoLightboxNext = photoLightbox.querySelector(".photo-lightbox-nav--next");
+let activePhotoIndex = 0;
+
+function renderPhotoPreview(index) {
+  activePhotoIndex = (index + photoSources.length) % photoSources.length;
+  const photo = photoSources[activePhotoIndex];
+  photoLightboxImage.src = photo.src;
+  photoLightboxImage.alt = photo.alt;
+  photoLightboxCategory.textContent = photo.category;
+  photoLightboxTitle.textContent = photo.title;
+}
+
+function openPhotoPreview(target) {
+  const image = target.querySelector("img");
+  if (!image) return;
+  const index = photoSources.findIndex(photo => photo.src === image.getAttribute("src"));
+  renderPhotoPreview(index >= 0 ? index : 0);
+  document.body.classList.add("photo-preview-open");
+  if (!photoLightbox.open) photoLightbox.showModal();
+}
+
+function bindPhotoPreview(container, itemSelector) {
+  container.addEventListener("click", event => {
+    const item = event.target instanceof Element ? event.target.closest(itemSelector) : null;
+    if (item && container.contains(item)) openPhotoPreview(item);
+  });
+  container.addEventListener("keydown", event => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const item = event.target instanceof Element ? event.target.closest(itemSelector) : null;
+    if (!item || !container.contains(item)) return;
+    event.preventDefault();
+    openPhotoPreview(item);
+  });
+}
+
+bindPhotoPreview(photoPrism, ".photo-prism-card");
+bindPhotoPreview(lifeGallery, ".life-card");
+
+photoLightboxClose.addEventListener("click", () => photoLightbox.close());
+photoLightboxPrevious.addEventListener("click", () => renderPhotoPreview(activePhotoIndex - 1));
+photoLightboxNext.addEventListener("click", () => renderPhotoPreview(activePhotoIndex + 1));
+photoLightbox.addEventListener("click", event => {
+  if (event.target === photoLightbox) photoLightbox.close();
 });
-document.addEventListener("visibilitychange", schedulePhotoCycle);
-window.addEventListener("resize", renderPhotoPrism);
-renderPhotoPrism();
-schedulePhotoCycle();
+photoLightbox.addEventListener("keydown", event => {
+  if (event.key === "ArrowLeft") renderPhotoPreview(activePhotoIndex - 1);
+  if (event.key === "ArrowRight") renderPhotoPreview(activePhotoIndex + 1);
+});
+photoLightbox.addEventListener("close", () => {
+  document.body.classList.remove("photo-preview-open");
+  window.requestAnimationFrame(() => {
+    photoPrism.classList.remove("is-paused");
+    lifeGallery.classList.remove("is-paused");
+  });
+});
 
 document.querySelectorAll(".experience-node").forEach(card => {
   const showReport = () => openDetail(experienceData[card.dataset.experience]);
@@ -837,8 +920,7 @@ function initPortraitScene() {
   const pitchLimit = THREE.MathUtils.degToRad(10);
   let pointerFollowing = false;
 
-  canvas.tabIndex = 0;
-  canvas.addEventListener("pointermove", event => {
+  const followPortraitPointer = event => {
     if (event.pointerType && event.pointerType !== "mouse") return;
     const rect = canvas.getBoundingClientRect();
     const positionX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
@@ -847,14 +929,19 @@ function initPortraitScene() {
     targetYaw = THREE.MathUtils.lerp(-yawLimit, yawLimit, positionX);
     targetPitch = THREE.MathUtils.lerp(pitchLimit, -pitchLimit, positionY);
     canvas.classList.add("is-following");
-  });
-  canvas.addEventListener("pointerleave", () => {
+  };
+  canvas.addEventListener("pointermove", followPortraitPointer);
+  if (!window.PointerEvent) canvas.addEventListener("mousemove", followPortraitPointer);
+
+  const resetPortraitPointer = () => {
     pointerFollowing = false;
     targetYaw = restingYaw;
     targetPitch = 0;
     canvas.classList.remove("is-following");
-  });
-  canvas.addEventListener("keydown", event => {
+  };
+  canvas.addEventListener("pointerleave", resetPortraitPointer);
+  if (!window.PointerEvent) canvas.addEventListener("mouseleave", resetPortraitPointer);
+  container.addEventListener("keydown", event => {
     if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home"].includes(event.key)) return;
     event.preventDefault();
     if (event.key === "Home") {
