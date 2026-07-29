@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>顾树昊｜一页简历</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>
+    (() => {
+      const tracks = {
+        ai: "versions/ai-test.html",
+        digital: "versions/digital.html",
+        agent: "versions/agent.html"
+      };
+      const requested = new URLSearchParams(window.location.search).get("track") || "ai";
+      window.location.replace((tracks[requested] || tracks.ai) + window.location.hash);
+    })();
+  </script>
+</head>
+<body>
+  <p><a href="versions/ai-test.html">进入 AI 测试开发一页简历</a></p>
+</body>
+</html>

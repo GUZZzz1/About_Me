@@ -515,12 +515,12 @@ lifeFilterButtons.forEach(button => {
       card.hidden = !visible;
     });
     lifeGallery.classList.add("is-resetting");
-    lifeGallery.style.setProperty("--life-duration", `${Math.max(32, (lifeThemeCounts[filter] || 1) * 3.1)}s`);
+    lifeGallery.style.setProperty("--life-duration", `${Math.max(20, (lifeThemeCounts[filter] || 1) * 1.9)}s`);
     window.requestAnimationFrame(() => lifeGallery.classList.remove("is-resetting"));
   });
 });
 
-lifeGallery.style.setProperty("--life-duration", `${Math.max(32, lifeThemeCounts.all * 3.1)}s`);
+lifeGallery.style.setProperty("--life-duration", `${Math.max(20, lifeThemeCounts.all * 1.9)}s`);
 
 const lifeSpeedControls = [...lifeGallery.querySelectorAll("[data-life-speed]")];
 let lifeBoostTimer = null;
@@ -543,7 +543,7 @@ function applyLifePlaybackRate() {
     return;
   }
   const direction = Number(engagedControl.dataset.lifeSpeed) || 1;
-  setLifePlaybackRate(direction * (engagedControl === lifeBoostControl ? 5 : 2.4));
+  setLifePlaybackRate(direction * (engagedControl === lifeBoostControl ? 5.5 : 3));
 }
 
 lifeSpeedControls.forEach(button => {
@@ -916,8 +916,8 @@ function initPortraitScene() {
   new ResizeObserver(resize).observe(container);
   resize();
 
-  const yawLimit = THREE.MathUtils.degToRad(22);
-  const pitchLimit = THREE.MathUtils.degToRad(10);
+  const yawLimit = THREE.MathUtils.degToRad(28);
+  const pitchLimit = THREE.MathUtils.degToRad(19);
   let pointerFollowing = false;
 
   const followPortraitPointer = event => {
@@ -968,8 +968,8 @@ function initPortraitScene() {
     const delta = Math.min(clock.getDelta(), .05);
     const elapsed = clock.elapsedTime;
     const ambientYaw = reducedMotion || pointerFollowing || routeInteracting ? 0 : Math.sin(elapsed * .34) * .018;
-    currentYaw = THREE.MathUtils.damp(currentYaw, targetYaw + ambientYaw, 8.4, delta);
-    currentPitch = THREE.MathUtils.damp(currentPitch, targetPitch + (reducedMotion || pointerFollowing || routeInteracting ? 0 : Math.sin(elapsed * .42) * .012), 7.2, delta);
+    currentYaw = THREE.MathUtils.damp(currentYaw, targetYaw + ambientYaw, 11.2, delta);
+    currentPitch = THREE.MathUtils.damp(currentPitch, targetPitch + (reducedMotion || pointerFollowing || routeInteracting ? 0 : Math.sin(elapsed * .42) * .012), 10.4, delta);
     model.rotation.y = currentYaw;
     model.rotation.x = currentPitch;
     canvas.dataset.yaw = currentYaw.toFixed(3);
@@ -984,3 +984,55 @@ function initPortraitScene() {
 }
 
 initPortraitScene();
+
+const portraitGuide = document.querySelector(".portrait-guide");
+const portraitGuideTrigger = portraitGuide?.querySelector(".portrait-hint");
+
+if (portraitGuide && portraitGuideTrigger) {
+  const setPortraitGuideOpen = open => {
+    portraitGuide.classList.toggle("is-open", open);
+    portraitGuideTrigger.setAttribute("aria-expanded", String(open));
+  };
+
+  portraitGuideTrigger.addEventListener("click", event => {
+    event.preventDefault();
+    setPortraitGuideOpen(!portraitGuide.classList.contains("is-open"));
+  });
+
+  document.addEventListener("pointerdown", event => {
+    if (!portraitGuide.contains(event.target)) setPortraitGuideOpen(false);
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && portraitGuide.classList.contains("is-open")) {
+      setPortraitGuideOpen(false);
+      portraitGuideTrigger.focus();
+    }
+  });
+}
+
+const resumeCustomizeZone = document.querySelector(".resume-customize-zone");
+const resumeCustomizeTrigger = resumeCustomizeZone?.querySelector(".resume-customize-trigger");
+
+if (resumeCustomizeZone && resumeCustomizeTrigger) {
+  const setResumeCustomizeOpen = open => {
+    resumeCustomizeZone.classList.toggle("is-open", open);
+    resumeCustomizeTrigger.setAttribute("aria-expanded", String(open));
+  };
+
+  resumeCustomizeTrigger.addEventListener("click", event => {
+    event.preventDefault();
+    setResumeCustomizeOpen(!resumeCustomizeZone.classList.contains("is-open"));
+  });
+
+  document.addEventListener("pointerdown", event => {
+    if (!resumeCustomizeZone.contains(event.target)) setResumeCustomizeOpen(false);
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      setResumeCustomizeOpen(false);
+      resumeCustomizeTrigger.focus();
+    }
+  });
+}

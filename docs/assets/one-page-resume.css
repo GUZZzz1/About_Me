@@ -1,0 +1,113 @@
+:root {
+  --ink: #242930;
+  --muted: #5f6875;
+  --line: #cfd6df;
+  --brand: #087f82;
+  --soft: #f4f8f9;
+}
+* { box-sizing: border-box; }
+@page { size: A4; margin: 0; }
+body {
+  margin: 0;
+  background: #e9edf2;
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+}
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 18px auto;
+  padding: 9mm 12mm 8mm;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(25, 35, 50, .14);
+}
+.header {
+  display: grid;
+  grid-template-columns: 1fr 22mm;
+  gap: 5mm;
+  align-items: start;
+  padding-bottom: 3.5mm;
+  border-bottom: 1px solid var(--line);
+}
+h1 {
+  margin: 0 0 1.2mm;
+  text-align: center;
+  color: #111827;
+  font-size: 23pt;
+  line-height: 1.05;
+  letter-spacing: .12em;
+}
+.contact, .target { text-align: center; font-size: 9.1pt; line-height: 1.5; }
+.target { margin-top: .8mm; color: var(--brand); font-weight: 800; }
+.photo {
+  width: 21mm;
+  height: 27mm;
+  object-fit: cover;
+  object-position: center top;
+  border: 1px solid #d5dbe3;
+  border-radius: 2mm;
+}
+section { margin-top: 2.8mm; }
+h2 {
+  margin: 0 0 1.5mm;
+  padding-bottom: 1mm;
+  border-bottom: 1px solid var(--line);
+  color: #111827;
+  font-size: 13pt;
+  line-height: 1.2;
+}
+.summary {
+  padding: 2.2mm 3mm;
+  border-left: 1.1mm solid var(--brand);
+  background: var(--soft);
+  font-size: 9pt;
+  line-height: 1.58;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+.job { padding: 2mm 0 2.1mm; border-bottom: 1px solid #e5e9ee; }
+.job:last-child { border-bottom: 0; padding-bottom: 0; }
+.head { display: grid; grid-template-columns: 8mm 1fr auto; gap: 2mm; align-items: center; }
+.logo { width: 7mm; height: 7mm; object-fit: contain; border-radius: 1.2mm; }
+.company { font-size: 10.2pt; font-weight: 900; color: #2c323a; }
+.role { margin-left: 2mm; font-size: 8.7pt; color: #424b57; font-weight: 650; }
+.date { white-space: nowrap; font-size: 8.5pt; color: var(--muted); }
+.tags { margin: .7mm 0 .9mm 10mm; font-size: 8pt; color: var(--muted); line-height: 1.35; }
+ul { margin: 0; padding-left: 14mm; }
+li {
+  margin: .7mm 0;
+  padding-left: .6mm;
+  font-size: 8.55pt;
+  line-height: 1.5;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+.compact-job { padding: 1.4mm 0 .3mm; }
+.compact-job .head { margin-bottom: .8mm; }
+.compact-copy { margin-left: 10mm; font-size: 8.5pt; line-height: 1.5; text-align: justify; text-justify: inter-ideograph; }
+.skills { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2mm 5mm; font-size: 8.45pt; line-height: 1.48; }
+.skills strong { color: #111827; }
+.edu-list { display: grid; gap: 1.2mm; }
+.edu { display: grid; grid-template-columns: 7mm 1.05fr 1fr auto; gap: 2mm; align-items: center; font-size: 8.6pt; line-height: 1.45; }
+.edu-logo { width: 6mm; height: 6mm; object-fit: contain; border-radius: 50%; }
+.school { font-weight: 850; color: #222831; }
+.version-nav { position: fixed; right: 10px; bottom: 10px; display: none; gap: 5px; z-index: 20; }
+.version-nav.is-local { display: flex; }
+.version-nav a {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(8, 127, 130, .28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .95);
+  color: rgba(8, 100, 102, .8);
+  text-decoration: none;
+  font: 800 9px/1 Arial, sans-serif;
+  box-shadow: 0 2px 6px rgba(20, 35, 60, .09);
+}
+@media print {
+  body { background: #fff; }
+  .page { margin: 0; box-shadow: none; }
+  .version-nav { display: none !important; }
+}
