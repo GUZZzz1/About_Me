@@ -47,8 +47,8 @@ const atlasLayout = {
   "dev-python": [5, 45], "dev-ts": [16, 45], "dev-vue": [5, 63],
   "dev-rest": [5, 81], "dev-data": [15, 93], "dev-browseruse": [27, 93],
   "dev-dom": [38, 82], "dev-playwright": [38, 65], "dev-report": [32, 49],
-  "test-yaml": [67, 48], "test-schema": [79, 48], "test-trace": [88, 40],
-  "test-failure": [96, 50], "test-release": [62, 63], "test-mobile": [96, 65],
+  "test-yaml": [67, 48], "test-schema": [79, 48], "test-trace": [87, 33],
+  "test-failure": [96, 52], "test-release": [62, 63], "test-mobile": [96, 65],
   "test-telemetry": [61, 79], "test-permission": [96, 80], "test-state": [66, 94],
   "test-context": [77, 92], "test-performance": [88, 92], "test-api": [82, 77],
   "ai-browser": [5, 7], "ai-context": [16, 7], "ai-loop": [27, 7],
@@ -175,6 +175,9 @@ Object.entries(groupMeta).forEach(([group, meta], index) => {
   hub.className = "atlas-node is-hub";
   hub.dataset.group = group;
   hub.dataset.hub = "true";
+  hub.dataset.kind = "source";
+  hub.dataset.nodeKey = `hub:${group}`;
+  hub.setAttribute("aria-label", `${meta.title}能力主线`);
   hub.style.setProperty("--x", `${meta.x}%`);
   hub.style.setProperty("--y", `${meta.y}%`);
   hub.style.setProperty("--float-duration", `${6.8 + index * .7}s`);
@@ -192,6 +195,8 @@ capabilityData.forEach((item, index) => {
   node.dataset.group = item.group;
   node.dataset.level = item.level;
   node.dataset.id = item.id;
+  node.dataset.kind = item.level === "practice" ? "document" : "tag";
+  node.dataset.nodeKey = item.id;
   node.style.setProperty("--x", `${x}%`);
   node.style.setProperty("--y", `${y}%`);
   const levelSize = { practice: 112, design: 86, study: 64 };
@@ -199,6 +204,7 @@ capabilityData.forEach((item, index) => {
   node.style.setProperty("--float-duration", `${5.8 + index % 5 * .55}s`);
   node.style.setProperty("--float-delay", `${-(index % 9) * .42}s`);
   node.innerHTML = `<span class="node-code">${groupMeta[item.group].code} · ${String(index + 1).padStart(2, "0")}</span><strong>${item.title}</strong><small>${item.short}</small>`;
+  node.setAttribute("aria-label", `${item.title}，${item.short}`);
   node.addEventListener("click", () => {
     if (toggleAtlasSelection(node)) openDetail(capabilityDetail(item));
   });
@@ -217,50 +223,227 @@ atlasRoot.addEventListener("click", () => openDetail({
 
 let previewAtlasNode = null;
 let selectedAtlasNode = null;
+const atlasGraph = { nodes: [], edges: [], byKey: new Map(), layoutSize: "", raf: 0 };
 
-function drawAtlasLinks() {
-  const atlasRect = atlas.getBoundingClientRect();
-  const rootRect = atlasRoot.getBoundingClientRect();
-  const rootX = rootRect.left - atlasRect.left + rootRect.width / 2;
-  const rootY = rootRect.top - atlasRect.top + rootRect.height / 2;
-  const hubs = [...atlas.querySelectorAll(".is-hub")];
-  const lines = [];
+const atlasRootGraphNode = { key: "root", kind: "root", group: "root", fixed: true, x: 0, y: 0, radius: 69, halfWidth: 69, halfHeight: 69 };
 
-  hubs.forEach(hub => {
-    const hubRect = hub.getBoundingClientRect();
-    const hubX = hubRect.left - atlasRect.left + hubRect.width / 2;
-    const hubY = hubRect.top - atlasRect.top + hubRect.height / 2;
-    const group = hub.dataset.group;
-    lines.push(`<line class="group-${group}" data-group="${group}" data-role="trunk" style="--line-index:${lines.length}" x1="${rootX}" y1="${rootY}" x2="${hubX}" y2="${hubY}"></line>`);
-    atlas.querySelectorAll(`.atlas-node[data-group="${group}"]:not(.is-hub)`).forEach(node => {
-      const rect = node.getBoundingClientRect();
-      const x = rect.left - atlasRect.left + rect.width / 2;
-      const y = rect.top - atlasRect.top + rect.height / 2;
-      lines.push(`<line class="group-${group}" data-group="${group}" data-target="${node.dataset.id}" style="--line-index:${lines.length}" x1="${hubX}" y1="${hubY}" x2="${x}" y2="${y}"></line>`);
-    });
+function atlasSeedPosition(element) {
+  const x = Number.parseFloat(element.style.getPropertyValue("--x")) || 50;
+  const y = Number.parseFloat(element.style.getPropertyValue("--y")) || 50;
+  return { x, y };
+}
+
+function createAtlasGraph() {
+  atlasGraph.nodes = [atlasRootGraphNode];
+  atlasGraph.edges = [];
+  atlasGraph.byKey = new Map([[atlasRootGraphNode.key, atlasRootGraphNode]]);
+
+  atlas.querySelectorAll(".atlas-node").forEach(element => {
+    const seed = atlasSeedPosition(element);
+    const radius = element.getBoundingClientRect().width / 2 || 48;
+    const graphNode = {
+      key: element.dataset.nodeKey,
+      element,
+      group: element.dataset.group,
+      kind: element.dataset.kind,
+      seedX: seed.x,
+      seedY: seed.y,
+      x: seed.x,
+      y: seed.y,
+      vx: 0,
+      vy: 0,
+      radius,
+      halfWidth: radius,
+      halfHeight: element.getBoundingClientRect().height / 2 || radius
+    };
+    atlasGraph.nodes.push(graphNode);
+    atlasGraph.byKey.set(graphNode.key, graphNode);
   });
 
-  atlasLinks.setAttribute("viewBox", `0 0 ${atlasRect.width} ${atlasRect.height}`);
-  atlasLinks.innerHTML = lines.join("");
+  const addEdge = (source, target, relation, group) => atlasGraph.edges.push({ source, target, relation, group });
+  Object.keys(groupMeta).forEach(group => {
+    const hubKey = `hub:${group}`;
+    addEdge("root", hubKey, "parent", group);
+    capabilityData.filter(item => item.group === group).forEach(item => addEdge(hubKey, item.id, "child", group));
+  });
+}
+
+createAtlasGraph();
+
+function atlasForceTarget(node, width, height) {
+  const meta = groupMeta[node.group];
+  const groupX = width * meta.x / 100;
+  const groupY = height * meta.y / 100;
+  const seedX = width * node.seedX / 100;
+  const seedY = height * node.seedY / 100;
+  if (node.kind === "source") return { x: groupX, y: groupY };
+  if (node.kind === "document") {
+    return { x: groupX + (seedX - groupX) * .86, y: groupY + (seedY - groupY) * .78 };
+  }
+  return { x: groupX + (seedX - groupX) * .92, y: groupY + (seedY - groupY) * .86 };
+}
+
+function clampAtlasNode(node, width, height) {
+  const margin = 22;
+  node.x = Math.max(node.radius + margin, Math.min(width - node.radius - margin, node.x));
+  node.y = Math.max(node.radius + margin, Math.min(height - node.radius - margin, node.y));
+}
+
+function positionAtlasNode(node, width, height) {
+  if (node.fixed) return;
+  clampAtlasNode(node, width, height);
+  node.element.style.setProperty("--x", `${node.x / width * 100}%`);
+  node.element.style.setProperty("--y", `${node.y / height * 100}%`);
+}
+
+function resolveAtlasCollision(first, second) {
+  const dx = second.x - first.x;
+  const dy = second.y - first.y;
+  const overlapX = first.halfWidth + second.halfWidth + 24 - Math.abs(dx);
+  const overlapY = first.halfHeight + second.halfHeight + 24 - Math.abs(dy);
+  if (overlapX <= 0 || overlapY <= 0) return false;
+  if (overlapX < overlapY) {
+    const direction = dx >= 0 ? 1 : -1;
+    const correction = overlapX * .52;
+    if (!first.fixed) first.x -= direction * correction;
+    if (!second.fixed) second.x += direction * correction;
+  } else {
+    const direction = dy >= 0 ? 1 : -1;
+    const correction = overlapY * .52;
+    if (!first.fixed) first.y -= direction * correction;
+    if (!second.fixed) second.y += direction * correction;
+  }
+  return true;
+}
+
+function relaxAtlasCollisions(width, height) {
+  for (let pass = 0; pass < 72; pass += 1) {
+    let changed = false;
+    for (let i = 0; i < atlasGraph.nodes.length; i += 1) {
+      for (let j = i + 1; j < atlasGraph.nodes.length; j += 1) {
+        const first = atlasGraph.nodes[i];
+        const second = atlasGraph.nodes[j];
+        if (resolveAtlasCollision(first, second)) changed = true;
+      }
+    }
+    atlasGraph.nodes.forEach(node => { if (!node.fixed) clampAtlasNode(node, width, height); });
+    if (!changed) break;
+  }
+}
+
+function runAtlasLayout({ reset = true } = {}) {
+  const width = atlas.clientWidth;
+  const height = atlas.clientHeight;
+  if (width < 100 || height < 100) return;
+  atlasGraph.nodes.forEach(node => {
+    if (node.fixed) {
+      node.x = width / 2;
+      node.y = height / 2;
+      return;
+    }
+    if (reset) {
+      node.x = width * node.seedX / 100;
+      node.y = height * node.seedY / 100;
+    }
+    node.vx = 0;
+    node.vy = 0;
+  });
+  if (atlasGraph.raf) cancelAnimationFrame(atlasGraph.raf);
+  let alpha = reducedMotion ? 0 : reset ? .92 : .72;
+  const tick = () => {
+    const currentWidth = atlas.clientWidth;
+    const currentHeight = atlas.clientHeight;
+    atlasRootGraphNode.x = currentWidth / 2;
+    atlasRootGraphNode.y = currentHeight / 2;
+    if (alpha > .018) {
+      atlasGraph.nodes.forEach(node => {
+        if (node.fixed) return;
+        const target = atlasForceTarget(node, currentWidth, currentHeight);
+        node.vx += (target.x - node.x) * .012 * alpha;
+        node.vy += (target.y - node.y) * .012 * alpha;
+      });
+
+      atlasGraph.edges.forEach(edge => {
+        const source = atlasGraph.byKey.get(edge.source);
+        const target = atlasGraph.byKey.get(edge.target);
+        const dx = target.x - source.x;
+        const dy = target.y - source.y;
+        const distance = Math.max(1, Math.hypot(dx, dy));
+        const rest = edge.relation === "parent" ? Math.min(currentWidth * .25, 270) : 148;
+        const spring = (distance - rest) / distance * .0032 * alpha;
+        if (!source.fixed) { source.vx += dx * spring; source.vy += dy * spring; }
+        if (!target.fixed) { target.vx -= dx * spring; target.vy -= dy * spring; }
+      });
+
+      for (let i = 1; i < atlasGraph.nodes.length; i += 1) {
+        for (let j = i + 1; j < atlasGraph.nodes.length; j += 1) {
+          const first = atlasGraph.nodes[i];
+          const second = atlasGraph.nodes[j];
+          resolveAtlasCollision(first, second);
+        }
+      }
+
+      atlasGraph.nodes.forEach(node => {
+        if (node.fixed) return;
+        node.vx *= .78;
+        node.vy *= .78;
+        node.x += node.vx;
+        node.y += node.vy;
+        positionAtlasNode(node, currentWidth, currentHeight);
+      });
+      drawAtlasLinks();
+      alpha *= .955;
+      atlasGraph.raf = requestAnimationFrame(tick);
+      return;
+    }
+    relaxAtlasCollisions(currentWidth, currentHeight);
+    atlasGraph.nodes.forEach(node => positionAtlasNode(node, currentWidth, currentHeight));
+    drawAtlasLinks();
+    atlasGraph.raf = 0;
+  };
+  tick();
+}
+
+function drawAtlasLinks() {
+  const width = atlas.clientWidth;
+  const height = atlas.clientHeight;
+  atlasRootGraphNode.x = width / 2;
+  atlasRootGraphNode.y = height / 2;
+  atlasLinks.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  if (atlasLinks.children.length !== atlasGraph.edges.length) {
+    atlasLinks.innerHTML = atlasGraph.edges.map((edge, index) => `<line class="group-${edge.group} relation-${edge.relation}" data-group="${edge.group}" data-role="${edge.relation}" data-source="${edge.source}" data-target="${edge.target}" style="--line-index:${index}"></line>`).join("");
+  }
+  [...atlasLinks.children].forEach((line, index) => {
+    const edge = atlasGraph.edges[index];
+    const source = atlasGraph.byKey.get(edge.source);
+    const target = atlasGraph.byKey.get(edge.target);
+    line.setAttribute("x1", source.x);
+    line.setAttribute("y1", source.y);
+    line.setAttribute("x2", target.x);
+    line.setAttribute("y2", target.y);
+  });
   const relationNode = previewAtlasNode || selectedAtlasNode;
   if (relationNode) updateAtlasRelation(relationNode);
 }
 
 function updateAtlasRelation(node) {
-  const group = node.dataset.group;
-  const nodeId = node.dataset.id;
-  const isHub = node.dataset.hub === "true";
+  const nodeKey = node.dataset.nodeKey;
+  const relatedKeys = new Set([nodeKey]);
+  atlasGraph.edges.forEach(edge => {
+    if (edge.source === nodeKey) relatedKeys.add(edge.target);
+    if (edge.target === nodeKey) relatedKeys.add(edge.source);
+  });
 
   atlas.classList.add("is-relating");
-  atlasRoot.classList.add("is-related");
+  atlasRoot.classList.toggle("is-related", relatedKeys.has("root"));
   atlas.querySelectorAll(".atlas-node").forEach(item => {
-    const related = item === node || (item.dataset.group === group && (isHub || item.dataset.hub === "true"));
+    const related = relatedKeys.has(item.dataset.nodeKey);
     item.classList.toggle("is-related", related);
     item.classList.toggle("is-dimmed", !related);
     item.classList.toggle("is-selected", item === selectedAtlasNode);
   });
   atlas.querySelectorAll(".atlas-links line").forEach(line => {
-    const related = line.dataset.group === group && (isHub || line.dataset.role === "trunk" || line.dataset.target === nodeId);
+    const related = relatedKeys.has(line.dataset.source) && relatedKeys.has(line.dataset.target);
     line.classList.toggle("is-related", related);
     line.classList.toggle("is-dimmed", !related);
   });
@@ -298,11 +481,139 @@ function toggleAtlasSelection(node) {
   return true;
 }
 
+const atlasDrag = {
+  graphNode: null,
+  pointerId: null,
+  pointerType: "",
+  startPointerX: 0,
+  startPointerY: 0,
+  startNodeX: 0,
+  startNodeY: 0,
+  holdTimer: 0,
+  active: false,
+  moved: false
+};
+const suppressedAtlasClicks = new WeakSet();
+
+function clearAtlasDragHold() {
+  if (atlasDrag.holdTimer) {
+    window.clearTimeout(atlasDrag.holdTimer);
+    atlasDrag.holdTimer = 0;
+  }
+}
+
+function activateAtlasDrag() {
+  const graphNode = atlasDrag.graphNode;
+  if (!graphNode || atlasDrag.active) return;
+  atlasDrag.active = true;
+  graphNode.vx = 0;
+  graphNode.vy = 0;
+  graphNode.element.classList.add("is-dragging");
+  if (atlasGraph.raf) {
+    cancelAnimationFrame(atlasGraph.raf);
+    atlasGraph.raf = 0;
+  }
+  previewAtlasNode = null;
+  if (selectedAtlasNode) updateAtlasRelation(selectedAtlasNode);
+  else clearAtlasClasses();
+  graphNode.element.setPointerCapture?.(atlasDrag.pointerId);
+}
+
+function beginAtlasDrag(event, element) {
+  if (event.button !== undefined && event.button !== 0) return;
+  const graphNode = atlasGraph.byKey.get(element.dataset.nodeKey);
+  if (!graphNode) return;
+  clearAtlasDragHold();
+  atlasDrag.graphNode = graphNode;
+  atlasDrag.pointerId = event.pointerId;
+  atlasDrag.pointerType = event.pointerType || "mouse";
+  atlasDrag.startPointerX = event.clientX;
+  atlasDrag.startPointerY = event.clientY;
+  atlasDrag.startNodeX = graphNode.x;
+  atlasDrag.startNodeY = graphNode.y;
+  atlasDrag.active = false;
+  atlasDrag.moved = false;
+  if (atlasDrag.pointerType === "touch") {
+    atlasDrag.holdTimer = window.setTimeout(activateAtlasDrag, 220);
+  } else {
+    activateAtlasDrag();
+  }
+}
+
+function resolveAtlasDragCollision(dragged, other, width, height) {
+  const dx = other.x - dragged.x;
+  const dy = other.y - dragged.y;
+  const overlapX = dragged.halfWidth + other.halfWidth + 24 - Math.abs(dx);
+  const overlapY = dragged.halfHeight + other.halfHeight + 24 - Math.abs(dy);
+  if (overlapX <= 0 || overlapY <= 0) return;
+  if (overlapX < overlapY) {
+    other.x += (dx >= 0 ? 1 : -1) * overlapX;
+  } else {
+    other.y += (dy >= 0 ? 1 : -1) * overlapY;
+  }
+  clampAtlasNode(other, width, height);
+  positionAtlasNode(other, width, height);
+}
+
+function moveAtlasDrag(event) {
+  if (!atlasDrag.graphNode || atlasDrag.pointerId !== event.pointerId) return;
+  const distance = Math.hypot(event.clientX - atlasDrag.startPointerX, event.clientY - atlasDrag.startPointerY);
+  if (!atlasDrag.active) {
+    if (atlasDrag.pointerType === "touch" && distance > 8) clearAtlasDragHold();
+    return;
+  }
+  event.preventDefault();
+  if (distance > 5) atlasDrag.moved = true;
+  const graphNode = atlasDrag.graphNode;
+  const width = atlas.clientWidth;
+  const height = atlas.clientHeight;
+  graphNode.x = atlasDrag.startNodeX + event.clientX - atlasDrag.startPointerX;
+  graphNode.y = atlasDrag.startNodeY + event.clientY - atlasDrag.startPointerY;
+  clampAtlasNode(graphNode, width, height);
+  atlasGraph.nodes.forEach(other => {
+    if (other !== graphNode && !other.fixed) resolveAtlasDragCollision(graphNode, other, width, height);
+  });
+  positionAtlasNode(graphNode, width, height);
+  drawAtlasLinks();
+}
+
+function finishAtlasDrag(event) {
+  if (!atlasDrag.graphNode || atlasDrag.pointerId !== event.pointerId) return;
+  clearAtlasDragHold();
+  const graphNode = atlasDrag.graphNode;
+  if (atlasDrag.active) {
+    graphNode.element.releasePointerCapture?.(atlasDrag.pointerId);
+    graphNode.element.classList.remove("is-dragging");
+    if (atlasDrag.moved) {
+      event.preventDefault();
+      suppressedAtlasClicks.add(graphNode.element);
+      runAtlasLayout({ reset: false });
+    }
+  }
+  atlasDrag.graphNode = null;
+  atlasDrag.pointerId = null;
+  atlasDrag.active = false;
+  atlasDrag.moved = false;
+}
+
+atlas.addEventListener("click", event => {
+  const element = event.target instanceof Element ? event.target.closest(".atlas-node") : null;
+  if (element && suppressedAtlasClicks.has(element)) {
+    suppressedAtlasClicks.delete(element);
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
+}, true);
+
 atlas.querySelectorAll(".atlas-node").forEach(node => {
-  node.addEventListener("pointerenter", () => focusAtlasRelation(node));
-  node.addEventListener("pointerleave", clearAtlasPreview);
-  node.addEventListener("focus", () => focusAtlasRelation(node));
-  node.addEventListener("blur", clearAtlasPreview);
+  node.addEventListener("pointerdown", event => beginAtlasDrag(event, node));
+  node.addEventListener("pointermove", moveAtlasDrag);
+  node.addEventListener("pointerup", finishAtlasDrag);
+  node.addEventListener("pointercancel", finishAtlasDrag);
+  node.addEventListener("pointerenter", () => { if (!atlasDrag.active) focusAtlasRelation(node); });
+  node.addEventListener("pointerleave", () => { if (!atlasDrag.active) clearAtlasPreview(); });
+  node.addEventListener("focus", () => { if (!atlasDrag.active) focusAtlasRelation(node); });
+  node.addEventListener("blur", () => { if (!atlasDrag.active) clearAtlasPreview(); });
 });
 
 const filterButtons = [...document.querySelectorAll(".atlas-toolbar button")];
@@ -325,7 +636,13 @@ filterButtons.forEach(button => {
 const atlasViewport = document.querySelector(".atlas-viewport");
 
 function prepareAtlasViewport() {
-  drawAtlasLinks();
+  const size = `${atlas.clientWidth}x${atlas.clientHeight}`;
+  if (size !== atlasGraph.layoutSize) {
+    atlasGraph.layoutSize = size;
+    runAtlasLayout();
+  } else {
+    drawAtlasLinks();
+  }
   if (window.innerWidth <= 700 && !atlasViewport.dataset.centered) {
     atlasViewport.scrollLeft = Math.max(0, (atlasViewport.scrollWidth - atlasViewport.clientWidth) / 2);
     atlasViewport.dataset.centered = "true";
