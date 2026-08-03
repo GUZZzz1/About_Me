@@ -105,7 +105,7 @@ const experienceData = {
     scope: "90%+ 对应固定关键组件集识别率，78% 对应直播 Web 端总体用例执行成功率，性能数据来自同一业务场景下的优化对比。"
   },
   baidu: {
-    kicker: "2026.03 — 至今 / Agent 质量工程",
+    kicker: "2026.05 — 至今 / Agent 质量工程",
     title: "百度 · DuMate AI 测试开发",
     summary: "围绕通用 Agent 的账号、上下文、工具、权限、异步任务和多端状态，组织端到端验证、自动化执行与发版质量闭环。",
     tags: ["Agent 质量", "YAML E2E", "执行证据", "HarmonyOS", "发版回归"],
