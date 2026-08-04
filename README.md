@@ -5,7 +5,9 @@
 ## 在线入口
 
 - 个人主页：<https://guzzzz1.github.io/About_Me/>
-- 一页投递简历：<https://guzzzz1.github.io/About_Me/one-page.html>
+- AI 测试开发简历（默认）：<https://guzzzz1.github.io/About_Me/resume/versions/ai-test.html>
+- Agent 应用开发简历：<https://guzzzz1.github.io/About_Me/resume/versions/agent.html>
+- 央国企数字化简历：<https://guzzzz1.github.io/About_Me/resume/versions/digital.html>
 - 完整经历简历：<https://guzzzz1.github.io/About_Me/resume/overview.html>
 
 GitHub Pages 发布源使用 `main` 分支下的 `/docs` 目录。
@@ -24,21 +26,27 @@ npm run preview
 ## 页面入口
 
 - 个人主页：`docs/index.html`
-- 一页投递简历：`docs/one-page.html`
+- AI 测试开发简历（默认）：`docs/resume/versions/ai-test.html`
+- Agent 应用开发简历：`docs/resume/versions/agent.html`
+- 央国企数字化简历：`docs/resume/versions/digital.html`
 - 完整经历简历：`docs/resume/overview.html`
+
+当前公开简历中的百度实习时间统一为 `2026.05 - 2026.08`，三个岗位版 HTML/PDF 与完整经历保持同步。
 
 ## 目录结构
 
 ```text
 src/
   index.html             # 主页源文件
-  one-page.html          # 一页简历源文件
-  resume/overview.html   # 完整经历简历源文件
+  resume/
+    overview.html        # 完整经历简历源文件
+    versions/            # 三个岗位版一页简历
   assets/
     home.css             # 主页样式源码
     home.js              # 交互、图谱与 Three.js 场景源码
 public/
   assets/                # 照片、Logo 与本地 Three.js 运行时
+  resume/versions/       # 三个岗位版 PDF
 scripts/
   build.mjs              # 生成 GitHub Pages 目录
 docs/
@@ -47,4 +55,4 @@ resume/
   20260721/              # 历史简历归档
 ```
 
-日常修改以 `src/` 与 `public/` 为准，执行 `npm run build` 后同步 `docs/`。`docs/` 只承担在线展示，历史版本继续按日期归档在 `resume/`。
+日常修改以 `src/` 与 `public/` 为准，执行 `npm run build` 后同步 `docs/`。`docs/` 只承担在线展示，历史版本继续按日期归档在 `resume/`；当公开事实发生更正时，同步修正归档中的对应信息。
