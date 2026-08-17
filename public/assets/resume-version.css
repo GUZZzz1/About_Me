@@ -139,7 +139,7 @@ body.is-standalone .resume-controls { display: block; }
   }
   .header { grid-template-columns: minmax(0, 1fr) 78px; gap: 14px; }
   h1 { font-size: 28px; }
-  .contact, .target { font-size: 12px; line-height: 1.6; word-break: break-word; }
+  .contact { font-size: 12px; line-height: 1.6; word-break: break-word; }
   .photo { width: 74px; height: 94px; }
   .head { grid-template-columns: 30px minmax(0, 1fr); align-items: start; }
   .date { grid-column: 2; margin-top: 4px; }

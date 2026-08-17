@@ -10,6 +10,10 @@
 - 央国企数字化简历：<https://guzzzz1.github.io/About_Me/resume/versions/digital.html>
 - 完整经历简历：<https://guzzzz1.github.io/About_Me/resume/overview.html>
 
+机器可读简历事实索引：<https://guzzzz1.github.io/About_Me/resume/ats-profile.json>
+
+简历的学校、学历、专业、排名、经历和技能等结构化事实统一维护在 `src/resume/ats-profile.json`。执行 `npm run build` 时，构建脚本会把这份索引注入三个岗位版和完整经历页的 JSON-LD；页面不显示该数据，但招聘系统或网页解析器可以读取。后续新增经历先补可验证事实，再更新这一个文件并同步可见简历。
+
 GitHub Pages 发布源使用 `main` 分支下的 `/docs` 目录。
 
 ## 本地预览
@@ -39,6 +43,7 @@ npm run preview
 src/
   index.html             # 主页源文件
   resume/
+    ats-profile.json     # 机器可读简历事实索引（唯一维护入口）
     overview.html        # 完整经历简历源文件
     versions/            # 三个岗位版一页简历
   assets/

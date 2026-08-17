@@ -74,7 +74,7 @@ const experienceData = {
   },
   aiq: {
     kicker: "2025.09 — 2025.11 / 大模型应用评测",
-    title: "艾麒信息 · AI 服务质量 / 大模型应用评测",
+    title: "艾麒信息 · AI 应用质量",
     summary: "围绕 AI 语聊长期记忆、多模态教育问答和模型服务稳定性，把开放式模型行为拆成可执行的评测流程、指标与 Badcase。",
     tags: ["长期记忆", "多模态评测", "并发与长稳", "Badcase", "结果报告"],
     metrics: [{ value: "8 类", label: "记忆内容" }, { value: "4 级", label: "写入意图" }, { value: "60", label: "并发用户" }, { value: "60 分钟", label: "耐力测试" }],
@@ -90,7 +90,7 @@ const experienceData = {
   },
   bilibili: {
     kicker: "2025.11 — 2026.03 / Browser Agent",
-    title: "哔哩哔哩 · AI WebUI / Browser Agent 测试开发",
+    title: "哔哩哔哩 · Agent 开发实习生",
     summary: "基于 Browser-Use 做直播 Web 场景二次开发，把自然语言测试文档转成页面感知、模型规划、结构化动作、执行断言与可回放脚本。",
     tags: ["Browser-Use", "上下文工程", "执行循环", "Playwright", "Trace"],
     metrics: [{ value: "90%+", label: "关键组件识别" }, { value: "78%", label: "总体用例执行" }, { value: "20s+ → 9s", label: "平均单步耗时" }, { value: "5000 → 2000", label: "系统提示词 Token" }],
@@ -106,7 +106,7 @@ const experienceData = {
   },
   baidu: {
     kicker: "2026.05 — 2026.08 / Agent 质量工程",
-    title: "百度 · DuMate AI 测试开发",
+    title: "百度 · AI 测试开发实习生（DuMate）",
     summary: "围绕通用 Agent 的账号、上下文、工具、权限、异步任务和多端状态，组织端到端验证、自动化执行与发版质量闭环。",
     tags: ["Agent 质量", "YAML E2E", "执行证据", "HarmonyOS", "发版回归"],
     metrics: [{ value: "7 条", label: "移动端核心链路" }, { value: "4 台", label: "鸿蒙回归设备" }, { value: "78", label: "单轮测试点" }, { value: "6 组", label: "定时任务组合场景" }],

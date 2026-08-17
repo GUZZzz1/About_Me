@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="birthdate" content="2000-09-25" />
   <title>顾树昊｜AI Agent 质量工程 / AI 测试开发</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <style>
@@ -36,10 +37,14 @@
       grid-template-columns: 1fr 104px;
       gap: 24px;
       align-items: start;
-      margin-bottom: 34px;
+      margin-bottom: 12px;
     }
+    .header-main { min-width: 0; }
+    .profile-summary { margin-top: 14px; }
+    .profile-summary .section-title { margin-bottom: 8px; }
+    .profile-summary .summary { padding: 10px 14px; line-height: 1.72; }
     h1 {
-      margin: 0 0 8px;
+      margin: 0 0 2px;
       font-size: 34px;
       letter-spacing: .08em;
       text-align: center;
@@ -49,14 +54,7 @@
       text-align: center;
       color: #3f4650;
       font-size: 15px;
-      margin-bottom: 8px;
-    }
-    .target {
-      text-align: center;
-      color: var(--brand);
-      font-weight: 800;
-      font-size: 15px;
-      margin-bottom: 6px;
+      margin-bottom: 0;
     }
     .photo {
       width: 96px;
@@ -68,14 +66,14 @@
       display: block;
       background: #f8fafc;
     }
-    .section { margin-top: 32px; }
+    .section { margin-top: 18px; }
+    .header + .section { border-top: 1px solid var(--line); padding-top: 14px; }
     .section-title {
       font-size: 21px;
       font-weight: 900;
       color: #111827;
       margin: 0 0 16px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--line);
+      padding-bottom: 0;
     }
     .summary {
       border-left: 4px solid var(--brand);
@@ -209,24 +207,246 @@
       .edu-row { grid-template-columns: 1fr; gap: 2px; }
     }
   </style>
+<!-- ATS_PROFILE_START -->
+<link rel="alternate" type="application/json" href="ats-profile.json" title="Machine-readable resume profile" />
+<script type="application/ld+json" data-ats-profile>{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "profileVersion": "2026-08-17",
+  "name": "顾树昊",
+  "birthDate": "2000-09-25",
+  "url": "https://guzzzz1.github.io/About_Me/",
+  "email": "1595916384@qq.com",
+  "telephone": "+86-13761056216",
+  "graduationYear": 2027,
+  "skills": [
+    "Python",
+    "TypeScript",
+    "Node.js",
+    "JavaScript",
+    "Flask",
+    "Vue 3",
+    "PostgreSQL",
+    "Playwright",
+    "Electron E2E",
+    "API testing",
+    "automation testing",
+    "log analysis",
+    "Browser Agent",
+    "LLM evaluation",
+    "YAML E2E",
+    "DOM inspection",
+    "failure attribution",
+    "performance stability testing"
+  ],
+  "education": [
+    {
+      "institution": "上海理工大学",
+      "department": "光电信息与计算机学院",
+      "degree": "硕士",
+      "fieldOfStudy": "计算机科学与技术",
+      "startDate": "2024-09",
+      "endDate": "2027-06",
+      "academicStanding": "成绩排名前10%",
+      "researchLabExperience": false
+    },
+    {
+      "institution": "上海工程技术大学",
+      "department": "电子电气工程学院",
+      "degree": "本科",
+      "fieldOfStudy": "数据科学与大数据技术",
+      "startDate": "2020-09",
+      "endDate": "2024-06",
+      "academicStanding": "成绩排名前10%",
+      "researchLabExperience": null
+    }
+  ],
+  "workExperience": [
+    {
+      "organization": "百度（中国）有限公司",
+      "role": "AI 测试开发实习生（DuMate）",
+      "startDate": "2026-05",
+      "endDate": "2026-08",
+      "keywords": [
+        "Agent产品测试",
+        "E2E自动化",
+        "HarmonyOS回归",
+        "状态隔离",
+        "失败归因"
+      ],
+      "evidence": [
+        "建设桌面端E2E自动化测试平台并沉淀可复用用例",
+        "执行多HarmonyOS版本和设备的全量功能回归",
+        "完成权限变更后定时任务P0回归和复测闭环"
+      ]
+    },
+    {
+      "organization": "上海幻电信息科技有限公司",
+      "role": "Agent 开发实习生",
+      "startDate": "2025-11",
+      "endDate": "2026-03",
+      "keywords": [
+        "Browser-Use",
+        "页面理解",
+        "Controller/Action",
+        "Playwright",
+        "执行回放"
+      ],
+      "evidence": [
+        "参与Browser-Use二次开发并打通页面状态、模型决策、Action执行、断言和脚本归档链路",
+        "关键组件识别成功率90%+，总体用例执行成功率78%",
+        "将平均单步执行耗时由20秒以上降至约7秒"
+      ]
+    },
+    {
+      "organization": "上海艾麒信息科技股份有限公司",
+      "role": "AI 应用质量实习生",
+      "startDate": "2025-09",
+      "endDate": "2025-11",
+      "keywords": [
+        "长期记忆评测",
+        "多用户并发",
+        "耐力测试",
+        "HTML报告"
+      ],
+      "evidence": [
+        "构建记忆注入、干扰对话和回溯验证自动化评估流程",
+        "开发多用户并发测试引擎并输出准确率、效率和衰减趋势报告",
+        "执行60并发、60分钟模型服务耐力测试并分析资源瓶颈"
+      ]
+    },
+    {
+      "organization": "上海锋滔资产管理有限公司",
+      "role": "全栈开发实习生",
+      "startDate": "2025-06",
+      "endDate": "2025-09",
+      "keywords": [
+        "Flask",
+        "PostgreSQL",
+        "Vue 3",
+        "RESTful API",
+        "Swagger"
+      ],
+      "evidence": [
+        "参与量化因子管理平台前后端开发",
+        "实现因子申请审批、元数据管理、计算任务和结果展示",
+        "完成接口联调和问题排查"
+      ]
+    }
+  ],
+  "notes": {
+    "sourceOfTruth": "本文件是主页简历的机器可读事实索引；新增经历前先补充可验证证据，再同步可见简历",
+    "visibility": "页面不展示本文件内容；构建产物会通过JSON-LD提供机器读取入口",
+    "unconfirmed": [
+      "本科实验室经历尚未确认"
+    ]
+  },
+  "alumniOf": [
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "上海理工大学",
+      "department": "光电信息与计算机学院",
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "硕士",
+        "educationalLevel": "硕士",
+        "about": "计算机科学与技术"
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "startDate",
+          "value": "2024-09"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "endDate",
+          "value": "2027-06"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "academicStanding",
+          "value": "成绩排名前10%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "researchLabExperience",
+          "value": false
+        }
+      ]
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "上海工程技术大学",
+      "department": "电子电气工程学院",
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "本科",
+        "educationalLevel": "本科",
+        "about": "数据科学与大数据技术"
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "startDate",
+          "value": "2020-09"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "endDate",
+          "value": "2024-06"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "academicStanding",
+          "value": "成绩排名前10%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "researchLabExperience",
+          "value": null
+        }
+      ]
+    }
+  ],
+  "knowsAbout": [
+    "Python",
+    "TypeScript",
+    "Node.js",
+    "JavaScript",
+    "Flask",
+    "Vue 3",
+    "PostgreSQL",
+    "Playwright",
+    "Electron E2E",
+    "API testing",
+    "automation testing",
+    "log analysis",
+    "Browser Agent",
+    "LLM evaluation",
+    "YAML E2E",
+    "DOM inspection",
+    "failure attribution",
+    "performance stability testing"
+  ]
+}</script>
+<!-- ATS_PROFILE_END -->
 </head>
 <body>
   <main class="page">
     <header class="header">
-      <div>
+      <div class="header-main">
         <h1>顾树昊</h1>
         <div class="contact">男 | 27届硕士 | 13761056216（微信同） | 1595916384@qq.com</div>
-        <div class="target">求职方向：AI 测试开发 / Agent 质量工程 / 大模型应用评测</div>
+        <section class="profile-summary">
+          <h2 class="section-title">个人优势</h2>
+          <div class="summary">
+            聚焦 AI 应用质量与 Agent 产品测试，覆盖 Browser Agent 开发、E2E 自动化、效果评测、性能稳定性和多端发版质量。能从模型输出、工具调用、状态流转和执行产物分层定位问题，并将失败转化为可复现、可回归的用例与证据。
+          </div>
+        </section>
       </div>
       <img class="photo" src="../assets/profile-photo.jpg" alt="顾树昊证件照" />
     </header>
-
-    <section class="section">
-      <h2 class="section-title">个人优势</h2>
-      <div class="summary">
-        具备大模型应用与 Agent 产品质量工程实践，覆盖工具能力开发、效果评测、E2E 自动化、执行链路观测、问题归因、性能稳定性验证、Badcase 回流和发版质量保障。经历包含 Browser Agent 二次开发、DuMate 通用 Agent 多端质量与 YAML E2E、长期记忆及多模态模型服务评测；能够从模型输出、Agent Runtime、工具调用、状态流转、Trace/Artifact 和用户结果分层定位问题，并将失败转化为可复现、可回归的用例与证据。
-      </div>
-    </section>
 
     <section class="section">
       <h2 class="section-title">实习经历</h2>
@@ -234,7 +454,7 @@
       <article class="job">
         <div class="job-head">
           <img class="company-logo" src="../assets/baidu-color.svg" alt="百度 logo" />
-          <div><span class="company">百度（中国）有限公司</span><span class="role">DuMate AI 测试开发实习生</span></div>
+          <div><span class="company">百度（中国）有限公司</span><span class="role">AI 测试开发实习生（DuMate）</span></div>
           <div class="date">2026.05 - 2026.08</div>
         </div>
         <div class="tags">Agent 质量工程 · E2E 测试开发 · YAML DSL · 执行链路验证 · Trace/Artifact · 多端与发版质量</div>
@@ -251,7 +471,7 @@
       <article class="job">
         <div class="job-head">
           <img class="company-logo bili-logo" src="../assets/bilibili-avatar.png" alt="哔哩哔哩 logo" />
-          <div><span class="company">上海幻电信息科技有限公司</span><span class="role">AI WebUI / Browser Agent 测试开发实习生</span></div>
+          <div><span class="company">上海幻电信息科技有限公司</span><span class="role">Agent 开发实习生</span></div>
           <div class="date">2025.11 - 2026.03</div>
         </div>
         <div class="tags">Browser Agent 开发 · Context Engineering · Action/Tool 扩展 · Agent Loop · Trace/Badcase · Playwright 交付</div>
@@ -267,7 +487,7 @@
       <article class="job">
         <div class="job-head">
           <img class="company-logo aiq-logo" src="../assets/aiq-energy-logo.png" alt="艾麒信息 logo" />
-          <div><span class="company">上海艾麒信息科技股份有限公司</span><span class="role">AI 服务质量 / 大模型应用评测实习生</span></div>
+          <div><span class="company">上海艾麒信息科技股份有限公司</span><span class="role">AI 应用质量实习生</span></div>
           <div class="date">2025.09 - 2025.11</div>
         </div>
         <div class="tags">模型效果评测 · 长期记忆 · 多模态问答 · 服务性能与稳定性 · 并发测试 · HTML 报告</div>
@@ -309,8 +529,8 @@
     <section class="section">
       <h2 class="section-title">教育经历</h2>
       <div class="edu-list">
-        <div class="edu-row"><span class="school">上海理工大学</span><span class="major">硕士｜计算机科学与技术</span><span class="date">2024.09 - 2027.06</span></div>
-        <div class="edu-row"><span class="school">上海工程技术大学</span><span class="major">本科｜数据科学与大数据技术</span><span class="date">2020.09 - 2024.06</span></div>
+        <div class="edu-row"><span class="school">上海理工大学</span><span class="major">光电信息与计算机学院｜硕士｜计算机科学与技术｜成绩排名前10%</span><span class="date">2024.09 - 2027.06</span></div>
+        <div class="edu-row"><span class="school">上海工程技术大学</span><span class="major">电子电气工程学院｜本科｜数据科学与大数据技术｜成绩排名前10%</span><span class="date">2020.09 - 2024.06</span></div>
       </div>
     </section>
 

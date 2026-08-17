@@ -23,12 +23,14 @@ body {
 }
 .header {
   display: grid;
-  grid-template-columns: 1fr 22mm;
+  grid-template-columns: 1fr 25mm;
   gap: 5mm;
-  align-items: start;
-  padding-bottom: 3.5mm;
-  border-bottom: 1px solid var(--line);
+  align-items: stretch;
+  padding-bottom: 0;
 }
+.header-main { min-width: 0; }
+.profile-summary { margin-top: 2.2mm; }
+.profile-summary h2 { margin-bottom: 1.1mm; }
 h1 {
   margin: 0 0 1.2mm;
   text-align: center;
@@ -37,21 +39,23 @@ h1 {
   line-height: 1.05;
   letter-spacing: .12em;
 }
-.contact, .target { text-align: center; font-size: 9.1pt; line-height: 1.5; }
-.target { margin-top: .8mm; color: var(--brand); font-weight: 800; }
+.contact { text-align: center; font-size: 9.1pt; line-height: 1.5; }
 .photo {
-  width: 21mm;
-  height: 27mm;
+  width: 24mm;
+  height: 100%;
+  min-height: 30mm;
   object-fit: cover;
   object-position: center top;
+  margin-top: 1.5mm;
   border: 1px solid #d5dbe3;
   border-radius: 2mm;
 }
-section { margin-top: 2.8mm; }
+section { margin-top: 3.2mm; }
+.header + section { border-top: 1px solid var(--line); padding-top: 2mm; }
+.early-experience { border-top: 1px solid var(--line); padding-top: 2mm; }
+.core-skills { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 2mm 0; }
 h2 {
   margin: 0 0 1.5mm;
-  padding-bottom: 1mm;
-  border-bottom: 1px solid var(--line);
   color: #111827;
   font-size: 13pt;
   line-height: 1.2;
@@ -85,10 +89,11 @@ li {
 .compact-job { padding: 1.4mm 0 .3mm; }
 .compact-job .head { margin-bottom: .8mm; }
 .compact-copy { margin-left: 10mm; font-size: 8.5pt; line-height: 1.5; text-align: justify; text-justify: inter-ideograph; }
-.skills { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2mm 5mm; font-size: 8.45pt; line-height: 1.48; }
+.skills { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2mm 5mm; font-size: 8.45pt; line-height: 1.5; }
 .skills strong { color: #111827; }
-.edu-list { display: grid; gap: 1.2mm; }
-.edu { display: grid; grid-template-columns: 7mm 1.05fr 1fr auto; gap: 2mm; align-items: center; font-size: 8.6pt; line-height: 1.45; }
+.edu-list { display: grid; gap: 1.8mm; }
+.edu { display: grid; grid-template-columns: 7mm 38mm minmax(0, 1fr) auto; gap: 1.5mm; align-items: center; font-size: 8.6pt; line-height: 1.45; }
+.edu > span { min-width: 0; overflow-wrap: anywhere; }
 .edu-logo { width: 6mm; height: 6mm; object-fit: contain; border-radius: 50%; }
 .school { font-weight: 850; color: #222831; }
 .version-nav { position: fixed; right: 10px; bottom: 10px; display: none; gap: 5px; z-index: 20; }

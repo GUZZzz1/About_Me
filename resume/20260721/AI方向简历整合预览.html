@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
+  <meta name="birthdate" content="2000-09-25" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>顾树昊｜AI Agent 质量工程 / AI 测试开发</title>
   <style>
@@ -35,10 +36,14 @@
       grid-template-columns: 1fr 104px;
       gap: 24px;
       align-items: start;
-      margin-bottom: 34px;
+      margin-bottom: 12px;
     }
+    .header-main { min-width: 0; }
+    .profile-summary { margin-top: 14px; }
+    .profile-summary .section-title { margin-bottom: 8px; }
+    .profile-summary .summary { padding: 10px 14px; line-height: 1.72; }
     h1 {
-      margin: 0 0 8px;
+      margin: 0 0 2px;
       font-size: 34px;
       letter-spacing: .08em;
       text-align: center;
@@ -48,14 +53,7 @@
       text-align: center;
       color: #3f4650;
       font-size: 15px;
-      margin-bottom: 8px;
-    }
-    .target {
-      text-align: center;
-      color: var(--brand);
-      font-weight: 800;
-      font-size: 15px;
-      margin-bottom: 6px;
+      margin-bottom: 0;
     }
     .photo {
       width: 96px;
@@ -67,7 +65,9 @@
       display: block;
       background: #f8fafc;
     }
-    .section { margin-top: 32px; }
+    .section { margin-top: 18px; }
+    .header + .section { border-top: 1px solid var(--line); padding-top: 14px; }
+    .section:first-of-type { margin-top: 0; }
     .section-title {
       font-size: 21px;
       font-weight: 900;
@@ -212,20 +212,18 @@
 <body>
   <main class="page">
     <header class="header">
-      <div>
+      <div class="header-main">
         <h1>顾树昊</h1>
         <div class="contact">男 | 27届硕士 | 13761056216（微信同） | 1595916384@qq.com</div>
-        <div class="target">求职方向：AI 测试开发 / Agent 质量工程 / 大模型应用评测</div>
+        <section class="profile-summary">
+          <h2 class="section-title">个人优势</h2>
+          <div class="summary">
+            具备大模型应用与 Agent 产品质量工程实践，覆盖工具能力开发、效果评测、E2E 自动化、执行链路观测、问题归因、性能稳定性验证、Badcase 回流和发版质量保障。经历包含 Browser Agent 二次开发、DuMate 通用 Agent 多端质量与 YAML E2E、长期记忆及多模态模型服务评测；能够从模型输出、Agent Runtime、工具调用、状态流转、Trace/Artifact 和用户结果分层定位问题，并将失败转化为可复现、可回归的用例与证据。
+          </div>
+        </section>
       </div>
       <img class="photo" src="assets/profile-photo.jpg" alt="顾树昊证件照" />
     </header>
-
-    <section class="section">
-      <h2 class="section-title">个人优势</h2>
-      <div class="summary">
-        具备大模型应用与 Agent 产品质量工程实践，覆盖工具能力开发、效果评测、E2E 自动化、执行链路观测、问题归因、性能稳定性验证、Badcase 回流和发版质量保障。经历包含 Browser Agent 二次开发、DuMate 通用 Agent 多端质量与 YAML E2E、长期记忆及多模态模型服务评测；能够从模型输出、Agent Runtime、工具调用、状态流转、Trace/Artifact 和用户结果分层定位问题，并将失败转化为可复现、可回归的用例与证据。
-      </div>
-    </section>
 
     <section class="section">
       <h2 class="section-title">实习经历</h2>
@@ -233,7 +231,7 @@
       <article class="job">
         <div class="job-head">
           <img class="company-logo" src="assets/baidu-color.svg" alt="百度 logo" />
-          <div><span class="company">百度（中国）有限公司</span><span class="role">DuMate AI 测试开发实习生</span></div>
+          <div><span class="company">百度（中国）有限公司</span><span class="role">AI 测试开发实习生（DuMate）</span></div>
           <div class="date">2026.05 - 2026.08</div>
         </div>
         <div class="tags">Agent 质量工程 · E2E 测试开发 · YAML DSL · 执行链路验证 · Trace/Artifact · 多端与发版质量</div>
@@ -250,7 +248,7 @@
       <article class="job">
         <div class="job-head">
           <img class="company-logo bili-logo" src="assets/bilibili-avatar.png" alt="哔哩哔哩 logo" />
-          <div><span class="company">上海幻电信息科技有限公司</span><span class="role">AI WebUI / Browser Agent 测试开发实习生</span></div>
+          <div><span class="company">上海幻电信息科技有限公司</span><span class="role">Agent 开发实习生</span></div>
           <div class="date">2025.11 - 2026.03</div>
         </div>
         <div class="tags">Browser Agent 开发 · Context Engineering · Action/Tool 扩展 · Agent Loop · Trace/Badcase · Playwright 交付</div>
@@ -266,7 +264,7 @@
       <article class="job">
         <div class="job-head">
           <img class="company-logo aiq-logo" src="assets/aiq-energy-logo.png" alt="艾麒信息 logo" />
-          <div><span class="company">上海艾麒信息科技股份有限公司</span><span class="role">AI 服务质量 / 大模型应用评测实习生</span></div>
+          <div><span class="company">上海艾麒信息科技股份有限公司</span><span class="role">AI 应用质量实习生</span></div>
           <div class="date">2025.09 - 2025.11</div>
         </div>
         <div class="tags">模型效果评测 · 长期记忆 · 多模态问答 · 服务性能与稳定性 · 并发测试 · HTML 报告</div>
@@ -308,8 +306,8 @@
     <section class="section">
       <h2 class="section-title">教育经历</h2>
       <div class="edu-list">
-        <div class="edu-row"><span class="school">上海理工大学</span><span class="major">硕士｜计算机科学与技术</span><span class="date">2024.09 - 2027.06</span></div>
-        <div class="edu-row"><span class="school">上海工程技术大学</span><span class="major">本科｜数据科学与大数据技术</span><span class="date">2020.09 - 2024.06</span></div>
+        <div class="edu-row"><span class="school">上海理工大学</span><span class="major">光电信息与计算机学院｜硕士｜计算机科学与技术｜成绩排名前10%</span><span class="date">2024.09 - 2027.06</span></div>
+        <div class="edu-row"><span class="school">上海工程技术大学</span><span class="major">电子电气工程学院｜本科｜数据科学与大数据技术｜成绩排名前10%</span><span class="date">2020.09 - 2024.06</span></div>
       </div>
     </section>
 
