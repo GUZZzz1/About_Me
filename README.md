@@ -8,11 +8,16 @@
 - AI 测试开发简历（默认）：<https://guzzzz1.github.io/About_Me/resume/versions/ai-test.html>
 - Agent 应用开发简历：<https://guzzzz1.github.io/About_Me/resume/versions/agent.html>
 - 央国企数字化简历：<https://guzzzz1.github.io/About_Me/resume/versions/digital.html>
+- English AI Test Development resume：<https://guzzzz1.github.io/About_Me/resume/versions/ai-test-en.html>
+- English Agent Application Development resume：<https://guzzzz1.github.io/About_Me/resume/versions/agent-en.html>
+- English Digital Transformation resume：<https://guzzzz1.github.io/About_Me/resume/versions/digital-en.html>
 - 完整经历简历：<https://guzzzz1.github.io/About_Me/resume/overview.html>
 
 机器可读简历事实索引：<https://guzzzz1.github.io/About_Me/resume/ats-profile.json>
 
-简历的学校、学历、专业、排名、经历和技能等结构化事实统一维护在 `src/resume/ats-profile.json`。执行 `npm run build` 时，构建脚本会把这份索引注入三个岗位版和完整经历页的 JSON-LD；页面不显示该数据，但招聘系统或网页解析器可以读取。后续新增经历先补可验证事实，再更新这一个文件并同步可见简历。
+英文版机器可读简历事实索引：<https://guzzzz1.github.io/About_Me/resume/ats-profile-en.json>
+
+中文简历的学校、学历、专业、排名、经历和技能等结构化事实维护在 `src/resume/ats-profile.json`，英文对应事实维护在 `src/resume/ats-profile-en.json`。执行 `npm run build` 时，构建脚本会按语言把对应索引注入岗位版和完整经历页的 JSON-LD；页面不显示该数据，但招聘系统或网页解析器可以读取。后续新增经历先补可验证事实，再同步两份索引与可见简历。
 
 GitHub Pages 发布源使用 `main` 分支下的 `/docs` 目录。
 
@@ -30,9 +35,9 @@ npm run preview
 ## 页面入口
 
 - 个人主页：`docs/index.html`
-- AI 测试开发简历（默认）：`docs/resume/versions/ai-test.html`
-- Agent 应用开发简历：`docs/resume/versions/agent.html`
-- 央国企数字化简历：`docs/resume/versions/digital.html`
+- AI 测试开发简历（默认）：`docs/resume/versions/ai-test.html` / `docs/resume/versions/ai-test-en.html`
+- Agent 应用开发简历：`docs/resume/versions/agent.html` / `docs/resume/versions/agent-en.html`
+- 央国企数字化简历：`docs/resume/versions/digital.html` / `docs/resume/versions/digital-en.html`
 - 完整经历简历：`docs/resume/overview.html`
 
 当前公开简历中的百度实习时间统一为 `2026.05 - 2026.08`，三个岗位版 HTML/PDF 与完整经历保持同步。
@@ -43,15 +48,16 @@ npm run preview
 src/
   index.html             # 主页源文件
   resume/
-    ats-profile.json     # 机器可读简历事实索引（唯一维护入口）
+    ats-profile.json     # 中文机器可读简历事实索引
+    ats-profile-en.json  # 英文机器可读简历事实索引
     overview.html        # 完整经历简历源文件
-    versions/            # 三个岗位版一页简历
+    versions/            # 三个岗位版一页简历（中文与英文）
   assets/
     home.css             # 主页样式源码
     home.js              # 交互、图谱与 Three.js 场景源码
 public/
   assets/                # 照片、Logo 与本地 Three.js 运行时
-  resume/versions/       # 三个岗位版 PDF
+  resume/versions/       # 三个岗位版 PDF（中文与英文）
 scripts/
   build.mjs              # 生成 GitHub Pages 目录
 docs/

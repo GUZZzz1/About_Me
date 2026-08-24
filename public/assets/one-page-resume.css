@@ -96,6 +96,29 @@ li {
 .edu > span { min-width: 0; overflow-wrap: anywhere; }
 .edu-logo { width: 6mm; height: 6mm; object-fit: contain; border-radius: 50%; }
 .school { font-weight: 850; color: #222831; }
+
+/* English copy needs slightly tighter measure to preserve the one-page format. */
+body.lang-en .page { padding-top: 7mm; padding-bottom: 5mm; }
+body.lang-en .profile-summary { margin-top: 1.6mm; }
+body.lang-en .profile-summary h2 { margin-bottom: .8mm; }
+body.lang-en .contact { font-size: 8.6pt; }
+body.lang-en .summary { padding: 1.7mm 2.6mm; font-size: 8.15pt; line-height: 1.42; }
+body.lang-en section { margin-top: 2.4mm; }
+body.lang-en .header + section,
+body.lang-en .early-experience { padding-top: 1.5mm; }
+body.lang-en .core-skills { padding: 1.5mm 0; }
+body.lang-en h2 { margin-bottom: 1mm; font-size: 12pt; }
+body.lang-en .job { padding: 1.3mm 0 1.4mm; }
+body.lang-en .company { font-size: 9.2pt; }
+body.lang-en .role { font-size: 8pt; }
+body.lang-en .date { font-size: 7.8pt; }
+body.lang-en .tags { margin-top: .45mm; margin-bottom: .55mm; font-size: 7.35pt; }
+body.lang-en li { margin: .45mm 0; font-size: 7.55pt; line-height: 1.46; }
+body.lang-en .compact-job { padding: .9mm 0 .2mm; }
+body.lang-en .compact-copy { font-size: 7.55pt; line-height: 1.46; }
+body.lang-en .skills { gap: 1.4mm 4mm; font-size: 7.55pt; line-height: 1.46; }
+body.lang-en .edu-list { gap: 1.2mm; }
+body.lang-en .edu { font-size: 7.55pt; line-height: 1.38; }
 .version-nav { position: fixed; right: 10px; bottom: 10px; display: none; gap: 5px; z-index: 20; }
 .version-nav.is-local { display: flex; }
 .version-nav a {
