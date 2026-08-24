@@ -7,6 +7,7 @@ body.is-standalone .resume-controls { display: block; }
 
 .resume-download,
 .resume-home,
+.resume-language,
 .resume-track-dock a {
   border: 1px solid rgba(48, 62, 64, .15);
   background: rgba(250, 252, 251, .68);
@@ -55,7 +56,8 @@ body.is-standalone .resume-controls { display: block; }
 }
 
 .resume-track-dock a,
-.resume-home {
+.resume-home,
+.resume-language {
   width: 42px;
   height: 42px;
   display: flex;
@@ -74,7 +76,8 @@ body.is-standalone .resume-controls { display: block; }
 }
 
 .resume-track-dock a span,
-.resume-home span {
+.resume-home span,
+.resume-language span {
   width: 28px;
   height: 28px;
   display: grid;
@@ -90,7 +93,8 @@ body.is-standalone .resume-controls { display: block; }
 }
 
 .resume-track-dock a b,
-.resume-home b {
+.resume-home b,
+.resume-language b {
   padding-right: 9px;
   opacity: 0;
   font-size: 11px;
@@ -104,11 +108,15 @@ body.is-standalone .resume-controls { display: block; }
 .resume-track-dock a:hover b,
 .resume-track-dock a:focus-visible b,
 .resume-home:hover b,
-.resume-home:focus-visible b { opacity: 1; transform: translateX(0); }
+.resume-home:focus-visible b,
+.resume-language:hover b,
+.resume-language:focus-visible b { opacity: 1; transform: translateX(0); }
 .resume-track-dock a:hover span,
 .resume-track-dock a:focus-visible span,
 .resume-home:hover span,
-.resume-home:focus-visible span { transform: scale(1.08); }
+.resume-home:focus-visible span,
+.resume-language:hover span,
+.resume-language:focus-visible span { transform: scale(1.08); }
 
 .resume-track-dock a[data-resume-nav="ai"] { background-color: rgba(229, 243, 234, .72); }
 .resume-track-dock a[data-resume-nav="digital"] { background-color: rgba(229, 239, 244, .74); }
@@ -127,6 +135,15 @@ body.is-standalone .resume-controls { display: block; }
 }
 .resume-home:hover,
 .resume-home:focus-visible { width: 118px; transform: translateY(-2px) scale(1.025); }
+
+.resume-language {
+  position: fixed;
+  left: 18px;
+  top: 70px;
+  z-index: 51;
+}
+.resume-language:hover,
+.resume-language:focus-visible { width: 118px; transform: translateY(-2px) scale(1.025); }
 
 @media screen and (max-width: 860px) {
   body { background: #fff; }
@@ -153,14 +170,19 @@ body.is-standalone .resume-controls { display: block; }
   .resume-download { top: 10px; right: 10px; height: 40px; }
   .resume-track-dock { right: 10px; gap: 7px; }
   .resume-track-dock a,
-  .resume-home { width: 38px; height: 38px; padding: 0 5px; }
+  .resume-home,
+  .resume-language { width: 38px; height: 38px; padding: 0 5px; }
   .resume-track-dock a span,
-  .resume-home span { width: 26px; height: 26px; flex-basis: 26px; }
+  .resume-home span,
+  .resume-language span { width: 26px; height: 26px; flex-basis: 26px; }
   .resume-track-dock a:hover,
   .resume-track-dock a:focus-visible { width: 132px; }
   .resume-home { left: 10px; top: 10px; }
   .resume-home:hover,
   .resume-home:focus-visible { width: 108px; }
+  .resume-language { left: 10px; top: 60px; }
+  .resume-language:hover,
+  .resume-language:focus-visible { width: 108px; }
 }
 
 @media print {
@@ -170,9 +192,12 @@ body.is-standalone .resume-controls { display: block; }
 @media (prefers-reduced-motion: reduce) {
   .resume-download,
   .resume-home,
+  .resume-language,
   .resume-track-dock a,
   .resume-track-dock a span,
   .resume-track-dock a b,
   .resume-home span,
-  .resume-home b { transition-duration: .01ms !important; }
+  .resume-home b,
+  .resume-language span,
+  .resume-language b { transition-duration: .01ms !important; }
 }
