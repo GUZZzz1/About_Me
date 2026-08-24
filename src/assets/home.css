@@ -1289,6 +1289,25 @@ body.photo-preview-open .life-gallery-track { animation-play-state: paused !impo
   color: var(--ink);
 }
 .resume-band .section-index { color: #593028; }
+.resume-language-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 0;
+  color: rgba(45, 48, 53, .55);
+  font-size: 11px;
+  letter-spacing: .04em;
+}
+.resume-language-entry a {
+  color: inherit;
+  text-decoration: none;
+  transition: color .25s ease, transform .25s ease;
+}
+.resume-language-entry a:hover,
+.resume-language-entry a:focus-visible {
+  color: var(--ink);
+  transform: translateY(-1px);
+}
 .resume-band h2 {
   width: max-content;
   margin: 0;

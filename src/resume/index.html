@@ -12,8 +12,15 @@
         digital: "versions/digital.html",
         agent: "versions/agent.html"
       };
+      const englishTracks = {
+        ai: "versions/ai-test-en.html",
+        digital: "versions/digital-en.html",
+        agent: "versions/agent-en.html"
+      };
       const requested = new URLSearchParams(window.location.search).get("track") || "ai";
-      window.location.replace((tracks[requested] || tracks.ai) + window.location.hash);
+      const language = new URLSearchParams(window.location.search).get("lang") || "zh";
+      const selectedTracks = language === "en" ? englishTracks : tracks;
+      window.location.replace((selectedTracks[requested] || selectedTracks.ai) + window.location.hash);
     })();
   </script>
 </head>
