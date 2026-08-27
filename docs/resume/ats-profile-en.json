@@ -15,9 +15,24 @@
     {"institution": "Shanghai University of Engineering Science", "department": "School of Electronic and Electrical Engineering", "degree": "Bachelor's", "fieldOfStudy": "Data Science and Big Data Technology", "startDate": "2020-09", "endDate": "2024-06", "academicStanding": "Top 10%", "researchLabExperience": null}
   ],
   "workExperience": [
-    {"organization": "Baidu, Inc.", "role": "AI Test Development Intern (DuMate)", "startDate": "2026-05", "endDate": "2026-08", "keywords": ["Agent product testing", "E2E automation", "HarmonyOS regression", "State isolation", "Failure attribution"], "evidence": ["Built a desktop E2E automation testing platform with reusable cases", "Executed full functional regression across multiple HarmonyOS versions and devices", "Completed P0 regression and retesting after permission changes"]},
+    {"organization": "Baidu, Inc.", "role": "AI Test Development Intern (DuMate)", "startDate": "2026-05", "endDate": "2026-09", "keywords": ["Agent product testing", "E2E automation", "Multi-platform functional testing", "Telemetry", "Issue diagnosis"], "evidence": ["Contributed to a desktop E2E automation platform with repeatable cases", "Tested Android, iOS, and multiple HarmonyOS versions and devices", "Verified functional, telemetry, and channel-attribution scenarios"]},
     {"organization": "Shanghai HuanDian Information Technology Co., Ltd.", "role": "Agent Development Intern", "startDate": "2025-11", "endDate": "2026-03", "keywords": ["Browser-Use", "Page understanding", "Controller/Action", "Playwright", "Execution replay"], "evidence": ["Contributed to a Browser-Use workflow from page state to model decision, Action execution, assertion, and script archiving", "Achieved 90%+ key-component recognition and 78% overall case execution success", "Reduced average step time from 20 seconds or more to about 7 seconds"]},
-    {"organization": "Shanghai AIQ Information Technology Co., Ltd.", "role": "AI Application Quality Intern", "startDate": "2025-09", "endDate": "2025-11", "keywords": ["Long-term memory evaluation", "Multi-user concurrency", "Endurance testing", "HTML reporting"], "evidence": ["Built an automated memory injection, distractor conversation, and recall verification workflow", "Developed a multi-user concurrency engine with accuracy, efficiency, and decay reports", "Ran a 60-user, 60-minute model service endurance test and analyzed resource bottlenecks"]},
+    {"organization": "Shanghai AIQ Information Technology Co., Ltd.", "role": "AI Application Quality Intern", "startDate": "2025-07", "endDate": "2025-10", "keywords": ["Long-term memory evaluation", "Multi-user concurrency", "Endurance testing", "HTML reporting"], "evidence": ["Built an automated memory injection, distractor conversation, and recall verification workflow", "Developed a multi-user concurrency engine with accuracy, efficiency, and decay reports", "Ran a 60-user, 60-minute model service endurance test and analyzed resource bottlenecks"]},
     {"organization": "Shanghai Fengtao Asset Management Co., Ltd.", "role": "Full-stack Development Intern", "startDate": "2025-06", "endDate": "2025-09", "keywords": ["Flask", "PostgreSQL", "Vue 3", "RESTful API", "Swagger"], "evidence": ["Contributed to full-stack development of a quantitative factor management platform", "Implemented factor approval, metadata management, compute jobs, and result presentation", "Completed API integration debugging"]}
+  ],
+  "projectExperience": [
+    {
+      "name": "Academic Literature Knowledge Graph and RAG Q&A System",
+      "role": "Project Lead / Core Developer",
+      "startDate": "2026-08",
+      "endDate": "2026-09",
+      "keywords": ["Academic literature search", "Knowledge graph", "Python data processing", "Neo4j", "Cypher", "PDF structured parsing", "Section-aware chunking", "Source provenance", "RAG workflow design"],
+      "evidence": [
+        "Designed a graph-first and full-text evidence workflow for a university-library literature search and Q&A scenario",
+        "Audited, split, normalized, and recorded metadata while separating fact entities, candidate relationships, and source evidence",
+        "Prepared Neo4j query data and section-aware PDF chunks with DOI, section, page, and coordinate provenance"
+      ],
+      "planned": ["Vectorization, answer generation, citation validation, and unsupported-answer refusal"]
+    }
   ]
 }

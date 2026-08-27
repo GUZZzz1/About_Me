@@ -69,6 +69,13 @@ h2 {
   text-align: justify;
   text-justify: inter-ideograph;
 }
+.target-role {
+  margin: 0 0 1.1mm;
+  color: #3d4854;
+  font-size: 8.7pt;
+  line-height: 1.4;
+}
+.target-role strong { color: #111827; font-weight: 850; }
 .job { padding: 2mm 0 2.1mm; border-bottom: 1px solid #e5e9ee; }
 .job:last-child { border-bottom: 0; padding-bottom: 0; }
 .head { display: grid; grid-template-columns: 8mm 1fr auto; gap: 2mm; align-items: center; }
@@ -119,6 +126,61 @@ body.lang-en .compact-copy { font-size: 7.55pt; line-height: 1.46; }
 body.lang-en .skills { gap: 1.4mm 4mm; font-size: 7.55pt; line-height: 1.46; }
 body.lang-en .edu-list { gap: 1.2mm; }
 body.lang-en .edu { font-size: 7.55pt; line-height: 1.38; }
+body.lang-en .contact { display: grid; gap: .45mm; line-height: 1.35; }
+body.lang-en .contact-role { color: var(--brand); font-weight: 850; }
+body.lang-en .photo { height: 39mm; min-height: 39mm; align-self: start; }
+body.lang-en .education-section { border-bottom: 1px solid var(--line); padding-bottom: 1.8mm; }
+body.lang-en .core-skills { border-bottom: 0; }
+body.lang-en .skills-summary { display: block; line-height: 1.55; }
+body.lang-en .skills-summary p { margin: 0; }
+body.resume-zh .header,
+body.lang-en .header { display: block; position: relative; min-height: 0; }
+body.resume-zh .header-main,
+body.lang-en .header-main { width: 100%; padding-right: 0; }
+body.resume-zh .header .photo,
+body.lang-en .header .photo { position: absolute; top: 0; right: 0; width: 22mm; height: 26mm; min-height: 26mm; margin-top: 0; }
+body.resume-zh .header .profile-summary,
+body.lang-en .header .profile-summary { width: 100%; margin-top: 2.5mm; }
+body.resume-zh .header .profile-summary .summary,
+body.lang-en .header .profile-summary .summary { width: 100%; }
+
+/* Give the Chinese AI resume a more relaxed reading rhythm without changing other tracks. */
+body.resume-zh .profile-summary { margin-top: 3mm; }
+body.resume-zh .contact { display: grid; gap: .45mm; line-height: 1.35; }
+body.resume-zh .contact-role { color: var(--brand); font-weight: 850; }
+body.resume-zh .photo { height: 39mm; min-height: 39mm; align-self: start; }
+body.resume-zh .summary { padding-top: 2.8mm; padding-bottom: 2.8mm; line-height: 1.68; }
+body.resume-zh section { margin-top: 4.2mm; }
+body.resume-zh .header + section { padding-top: 2.6mm; }
+body.resume-zh .education-section { border-bottom: 1px solid var(--line); padding-bottom: 2.6mm; }
+body.resume-zh .edu-list { gap: 2.5mm; }
+body.resume-zh .job { padding-top: 2.7mm; padding-bottom: 2.8mm; }
+body.resume-zh li { margin-top: 1mm; margin-bottom: 1mm; line-height: 1.58; }
+body.resume-zh .core-skills { border-bottom: 0; padding-top: 2.8mm; padding-bottom: 2.8mm; }
+body.resume-zh .skills { gap: 3.2mm 5.5mm; line-height: 1.58; }
+body.resume-zh .skills-summary { display: block; font-size: 8.55pt; line-height: 1.7; }
+body.resume-zh .skills-summary p { margin: 0; }
+.project-head { display: grid; grid-template-columns: 1fr auto; gap: 2mm; align-items: center; }
+.project-head .company { display: inline-block; font-size: 10.2pt; font-weight: 900; line-height: 1.2; }
+.project-experience .project { padding-top: 2mm; padding-bottom: 2.2mm; }
+body.resume-ai-zh .header { column-gap: 5mm; row-gap: 1mm; align-items: start; }
+body.resume-ai-zh .header .profile-summary { grid-column: 1 / -1; width: 100%; margin-top: 0; }
+body.resume-ai-zh .photo { height: 32mm; min-height: 32mm; }
+body.resume-ai-zh .project-head .role { font-size: 8.7pt; }
+body.resume-ai-zh section { margin-top: 3.4mm; }
+body.resume-ai-zh .job { padding-top: 2.2mm; padding-bottom: 2.2mm; }
+body.resume-ai-zh .project-experience .project { padding-top: 1.2mm; padding-bottom: 1.2mm; }
+body.resume-ai-zh .project-experience li { margin-top: .55mm; margin-bottom: .55mm; line-height: 1.45; font-size: 8.25pt; }
+body.resume-ai-zh .header { display: block; position: relative; min-height: 0; }
+body.resume-ai-zh .header-main { padding-right: 24mm; }
+body.resume-ai-zh .header .photo { position: absolute; top: 0; right: 0; width: 22mm; height: 26mm; min-height: 26mm; margin-top: 0; }
+body.resume-ai-zh .header .profile-summary { margin-top: 2.5mm; }
+body.resume-ai-zh .project-copy { margin-left: 10mm; font-size: 8.55pt; line-height: 1.5; text-align: justify; text-justify: inter-ideograph; }
+body.resume-zh section { margin-top: 3.4mm; }
+body.resume-zh .job { padding-top: 2.2mm; padding-bottom: 2.2mm; }
+body.resume-zh .project-experience .project { padding-top: 1.2mm; padding-bottom: 1.2mm; }
+body.resume-zh .project-copy { margin-left: 10mm; font-size: 8.55pt; line-height: 1.5; text-align: justify; text-justify: inter-ideograph; }
+body.lang-en .project-copy { margin-left: 10mm; font-size: 7.55pt; line-height: 1.46; text-align: justify; }
 .version-nav { position: fixed; right: 10px; bottom: 10px; display: none; gap: 5px; z-index: 20; }
 .version-nav.is-local { display: flex; }
 .version-nav a {

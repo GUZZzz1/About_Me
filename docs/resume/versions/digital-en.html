@@ -1,13 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="birthdate" content="2000-09-25" />
-  <title>Gu Shuhao | Digital Transformation Resume</title>
-  <link rel="stylesheet" href="../../assets/one-page-resume.css" />
-  <link rel="stylesheet" href="../../assets/resume-version.css?v=3" />
-<!-- ATS_PROFILE_START -->
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="birthdate" content="2000-09-25" /><title>Gu Shuhao | Digital Transformation Resume</title><link rel="stylesheet" href="../../assets/one-page-resume.css" /><link rel="stylesheet" href="../../assets/resume-version.css?v=3" /><!-- ATS_PROFILE_START -->
 <link rel="alternate" type="application/json" href="../ats-profile-en.json" title="Machine-readable resume profile" />
 <script type="application/ld+json" data-ats-profile>{
   "@context": "https://schema.org",
@@ -67,18 +60,18 @@
       "organization": "Baidu, Inc.",
       "role": "AI Test Development Intern (DuMate)",
       "startDate": "2026-05",
-      "endDate": "2026-08",
+      "endDate": "2026-09",
       "keywords": [
         "Agent product testing",
         "E2E automation",
-        "HarmonyOS regression",
-        "State isolation",
-        "Failure attribution"
+        "Multi-platform functional testing",
+        "Telemetry",
+        "Issue diagnosis"
       ],
       "evidence": [
-        "Built a desktop E2E automation testing platform with reusable cases",
-        "Executed full functional regression across multiple HarmonyOS versions and devices",
-        "Completed P0 regression and retesting after permission changes"
+        "Contributed to a desktop E2E automation platform with repeatable cases",
+        "Tested Android, iOS, and multiple HarmonyOS versions and devices",
+        "Verified functional, telemetry, and channel-attribution scenarios"
       ]
     },
     {
@@ -102,8 +95,8 @@
     {
       "organization": "Shanghai AIQ Information Technology Co., Ltd.",
       "role": "AI Application Quality Intern",
-      "startDate": "2025-09",
-      "endDate": "2025-11",
+      "startDate": "2025-07",
+      "endDate": "2025-10",
       "keywords": [
         "Long-term memory evaluation",
         "Multi-user concurrency",
@@ -132,6 +125,33 @@
         "Contributed to full-stack development of a quantitative factor management platform",
         "Implemented factor approval, metadata management, compute jobs, and result presentation",
         "Completed API integration debugging"
+      ]
+    }
+  ],
+  "projectExperience": [
+    {
+      "name": "Academic Literature Knowledge Graph and RAG Q&A System",
+      "role": "Project Lead / Core Developer",
+      "startDate": "2026-08",
+      "endDate": "2026-09",
+      "keywords": [
+        "Academic literature search",
+        "Knowledge graph",
+        "Python data processing",
+        "Neo4j",
+        "Cypher",
+        "PDF structured parsing",
+        "Section-aware chunking",
+        "Source provenance",
+        "RAG workflow design"
+      ],
+      "evidence": [
+        "Designed a graph-first and full-text evidence workflow for a university-library literature search and Q&A scenario",
+        "Audited, split, normalized, and recorded metadata while separating fact entities, candidate relationships, and source evidence",
+        "Prepared Neo4j query data and section-aware PDF chunks with DOI, section, page, and coordinate provenance"
+      ],
+      "planned": [
+        "Vectorization, answer generation, citation validation, and unsupported-answer refusal"
       ]
     }
   ],
@@ -228,98 +248,14 @@
 </head>
 <body class="lang-en" data-resume-track="digital">
   <main class="page">
-    <header class="header">
-      <div class="header-main">
-        <h1>Gu Shuhao</h1>
-        <div class="contact">Male | Class of 2027 Master's Student | 13761056216 (WeChat) | 1595916384@qq.com</div>
-        <section class="profile-summary">
-          <h2>Profile</h2>
-          <div class="summary">Experienced in business system development and quality assurance, covering requirement decomposition, data modeling, API integration, E2E regression, and issue diagnosis. Able to turn business requirements into verifiable delivery outcomes.</div>
-        </section>
-      </div>
-      <img class="photo" src="../../assets/profile-photo.jpg" alt="Gu Shuhao profile photo" />
-    </header>
-
-    <section>
-      <h2>Internship Experience</h2>
-      <article class="job">
-        <div class="head"><img class="logo" src="../../assets/baidu-color.svg" alt="Baidu logo" /><div><span class="company">Baidu, Inc.</span><span class="role">AI Test Development Intern (DuMate)</span></div><span class="date">May 2026 - Aug 2026</span></div>
-        <div class="tags">Business flow testing | E2E automation platform | Multi-system regression | Issue diagnosis</div>
-        <ul>
-          <li>Built a desktop E2E automation testing platform and turned core business flows into reusable cases; verified functionality through preconditions, key actions, page and data results, logs, and screenshots, then located and retested failures.</li>
-          <li>Executed full functional regression across multiple HarmonyOS versions and devices, covering login, main conversation, skills, automation, and device management; followed defect localization, retesting, and release conclusions.</li>
-          <li>Supported mobile release quality assurance by regressing core features, login, and data-reporting flows; identified a one-click login blocker caused by package configuration, passed retesting with the correct release package, and synchronized the test conclusion.</li>
-        </ul>
-      </article>
-
-      <article class="job">
-        <div class="head"><img class="logo" src="../../assets/bilibili-avatar.png" alt="Bilibili logo" /><div><span class="company">Shanghai HuanDian Information Technology Co., Ltd.</span><span class="role">Agent Development Intern</span></div><span class="date">Nov 2025 - Mar 2026</span></div>
-        <div class="tags">Web automation | Interaction tools | Execution replay | Performance optimization</div>
-        <ul>
-          <li>Contributed to web automation tool development, converting natural-language test documents into page recognition, task planning, action execution, result verification, and Playwright script archiving workflows.</li>
-          <li>Improved page information extraction and interaction tools for live-streaming scenarios; achieved 90%+ key-component recognition and a 78% overall case execution success rate, reducing average step time from 20s+ to about 7s.</li>
-          <li>Added bounded retries, step limits, and failure records, using page snapshots, logs, screenshots, and verification results to support execution replay and issue diagnosis.</li>
-        </ul>
-      </article>
-
-      <article class="job">
-        <div class="head"><img class="logo" src="../../assets/aiq-energy-logo.png" alt="AIQ Information logo" /><div><span class="company">Shanghai AIQ Information Technology Co., Ltd.</span><span class="role">AI Application Quality Intern</span></div><span class="date">Sep 2025 - Nov 2025</span></div>
-        <div class="tags">Automated evaluation | Concurrency and endurance | Output quality | HTML reporting</div>
-        <ul>
-          <li>Built an automated long-term memory evaluation workflow and a multi-user concurrency engine, producing HTML reports for matching accuracy, execution efficiency, and decay trends.</li>
-          <li>Designed and ran a 60-user, 60-minute endurance test for model services; tracked success rate, response time, and abnormal returns, and correlated CPU/memory curves to analyze latency jitter, timeouts, and resource bottlenecks.</li>
-        </ul>
-      </article>
-    </section>
-
-    <section class="early-experience">
-      <h2>Earlier Experience</h2>
-      <article class="compact-job">
-        <div class="head"><img class="logo" src="../../assets/fengtao-logo.png" alt="Fengtao Asset Management logo" /><div><span class="company">Shanghai Fengtao Asset Management Co., Ltd.</span><span class="role">Full-stack Development Intern</span></div><span class="date">Jun 2025 - Sep 2025</span></div>
-        <div class="compact-copy">Contributed to full-stack development of a quantitative factor management platform with Flask/SQLAlchemy, PostgreSQL, Vue 3, and Element Plus, covering factor application and approval, metadata management, compute jobs, and result presentation; maintained Swagger documentation and completed integration debugging.</div>
-      </article>
-    </section>
-
-    <section class="core-skills">
-      <h2>Core Skills</h2>
-      <div class="skills">
-        <div><strong>Software Development:</strong> Python/Flask, TypeScript/Node.js, Vue 3, PostgreSQL</div>
-        <div><strong>Automated Verification:</strong> Playwright, Electron E2E, YAML, API and UI assertions</div>
-        <div><strong>System Quality:</strong> Multi-device regression, performance stability, state isolation, recovery</div>
-        <div><strong>Engineering Collaboration:</strong> Requirement clarification, Swagger, API integration, log diagnosis</div>
-      </div>
-    </section>
-
-    <section>
-      <h2>Education</h2>
-      <div class="edu-list">
-        <div class="edu"><img class="edu-logo" src="../../assets/usst-logo.png" alt="University of Shanghai for Science and Technology logo" /><span class="school">University of Shanghai for Science and Technology</span><span>School of Optical-Electronic and Computer Engineering | Master's, Computer Science and Technology | Top 10%</span><span>Sep 2024 - Jun 2027</span></div>
-        <div class="edu"><img class="edu-logo" src="../../assets/sues-logo.png" alt="Shanghai University of Engineering Science logo" /><span class="school">Shanghai University of Engineering Science</span><span>School of Electronic and Electrical Engineering | Bachelor's, Data Science and Big Data Technology | Top 10%</span><span>Sep 2020 - Jun 2024</span></div>
-      </div>
-    </section>
+    <header class="header"><div class="header-main"><h1>Gu Shuhao</h1><div class="contact"><span class="contact-role">Target role: Digital Transformation, Software Development</span><span>Male | Class of 2027 Master's student (graduating Jun 2027)</span><span>13761056216 (WeChat) | 1595916384@qq.com</span></div><section class="profile-summary"><h2>Profile</h2><div class="summary">I have worked on web application development and AI application testing across multiple platforms. My experience covers requirements, page behavior, APIs, data results, and issue diagnosis, using Python/Flask, TypeScript/Node.js, and Vue 3 in development and test work.</div></section></div><img class="photo" src="../../assets/profile-photo.jpg" alt="Gu Shuhao profile photo" /></header>
+    <section class="education-section"><h2>Education</h2><div class="edu-list"><div class="edu"><img class="edu-logo" src="../../assets/usst-logo.png" alt="University of Shanghai for Science and Technology logo" /><span class="school">University of Shanghai for Science and Technology</span><span>Master's | School of Optical-Electronic and Computer Engineering | Computer Science and Technology | Top 10%</span><span>Sep 2024 - Jun 2027</span></div><div class="edu"><img class="edu-logo" src="../../assets/sues-logo.png" alt="Shanghai University of Engineering Science logo" /><span class="school">Shanghai University of Engineering Science</span><span>Bachelor's | School of Electronic and Electrical Engineering | Data Science and Big Data Technology | Top 10%</span><span>Sep 2020 - Jun 2024</span></div></div></section>
+    <section><h2>Internship Experience</h2><article class="job"><div class="head"><img class="logo" src="../../assets/baidu-color.svg" alt="Baidu logo" /><div><span class="company">Baidu, Inc.</span><span class="role">AI Test Development Intern (DuMate)</span></div><span class="date">May 2026 - Sep 2026</span></div><div class="tags">Agent product testing | E2E automation platform | Android/iOS/HarmonyOS functional testing | Telemetry and issue diagnosis</div><ul><li><strong>E2E automation platform:</strong> Contributed to a desktop E2E automation platform and turned common business flows into repeatable cases; checked preconditions, actions, page and data results, and used logs and screenshots to locate failures.</li><li><strong>Multi-platform functional testing:</strong> Tested Android, iOS, and HarmonyOS, including multiple HarmonyOS versions and devices. Covered login, main conversation, skills, automation, device management, voice input, telemetry, and channel attribution; recorded page, state, data, and reporting results and followed up on retesting and release outcomes.</li></ul></article><article class="job"><div class="head"><img class="logo" src="../../assets/bilibili-avatar.png" alt="Bilibili logo" /><div><span class="company">Shanghai HuanDian Information Technology Co., Ltd.</span><span class="role">Agent Development Intern</span></div><span class="date">Nov 2025 - Mar 2026</span></div><div class="tags">Web automation | Page interaction tools | Execution replay | Performance optimization</div><ul><li><strong>Agent execution flow:</strong> Contributed to web automation tool development, breaking natural-language test documents into page recognition, task planning, action execution, result checks, and Playwright script archiving.</li><li><strong>Page interaction:</strong> Adjusted page information extraction and interaction tools for live-streaming web scenarios, including hover and wait-for-click operations; achieved 90%+ key-component recognition and 78% overall case execution success, reducing average step time from 20s+ to about 7s.</li><li><strong>Replay and diagnosis:</strong> Added bounded retries, step limits, and failure records, using page snapshots, logs, screenshots, and verification results to support execution replay and issue diagnosis.</li></ul></article><article class="job"><div class="head"><img class="logo" src="../../assets/aiq-energy-logo.png" alt="AIQ Information logo" /><div><span class="company">Shanghai AIQ Information Technology Co., Ltd.</span><span class="role">AI Application Quality Intern</span></div><span class="date">Jul 2025 - Oct 2025</span></div><div class="tags">Automated evaluation | Concurrency and endurance | Output quality | HTML reporting</div><ul><li><strong>Memory evaluation:</strong> Organized an automated evaluation flow around long-term memory: write a memory, insert distractor conversations, and verify recall. Covered direct memory, updates, ambiguity, and reasoning cases; compared answers with expected content, manually reviewed complex cases, and reported accuracy, execution efficiency, and decay trends.</li><li><strong>Service stability:</strong> Contributed to a multi-user concurrency test engine and ran a 60-user, 60-minute endurance test, recording success rate, response time, abnormal returns, and CPU/memory curves to analyze latency jitter, timeouts, and resource bottlenecks.</li></ul></article></section>
+    <section class="project-experience"><h2>Project Experience</h2><article class="job project"><div class="project-head"><div><span class="company">Academic Literature Knowledge Graph and RAG Q&amp;A System</span><span class="role">Project Lead / Core Developer</span></div><span class="date">Aug 2026 - Sep 2026</span></div><div class="tags">Academic literature search | Relationship analysis | Full-text evidence | RAG workflow design</div><div class="project-copy">Designed a knowledge-graph and full-text RAG workflow for a university-library literature search and Q&amp;A scenario: use relationships among papers, authors, institutions, venues, and keywords to narrow the search, then locate chapter-level evidence, addressing difficult relationship queries and poor traceability in long documents. Used Python to audit, split, normalize, and record WoS metadata, keeping fact entities, candidate relationships, and source evidence separate so uncertain mappings do not enter the graph as facts. Organized the data for Neo4j/Cypher queries covering author collaboration, keyword trends, and paper paths, with ECharts for relationship views; parsed two-column PDFs into section- and paragraph-aware chunks while retaining DOI, section, page, and coordinate provenance. Vectorization, answer generation, citation validation, and unsupported-answer refusal are reserved interfaces and are not claimed as completed.</div></article></section>
   </main>
-
-  <div class="resume-controls" aria-label="Resume actions">
-    <a class="resume-download" href="digital-en.pdf" download="Gu Shuhao-Digital Transformation-2027-USST.pdf" aria-label="Download Digital Transformation resume PDF"><span aria-hidden="true">↓</span><b>Download PDF</b></a>
-    <nav class="resume-track-dock" aria-label="Switch resume track">
-      <a data-resume-nav="ai" href="ai-test-en.html" aria-label="AI Test Development"><span>T</span><b>AI Test Development</b></a>
-      <a data-resume-nav="digital" href="digital-en.html" aria-label="Digital Transformation"><span>D</span><b>Digital Transformation</b></a>
-      <a data-resume-nav="agent" href="agent-en.html" aria-label="Agent Application Development"><span>A</span><b>Agent Application Development</b></a>
-    </nav>
-    <a class="resume-home" href="../../index.html" aria-label="Back to homepage"><span aria-hidden="true">↩</span><b>Back to Homepage</b></a>
-    <a class="resume-language" href="digital.html" aria-label="切换到中文简历"><span aria-hidden="true">中</span><b>中文</b></a>
-  </div>
+  <div class="resume-controls" aria-label="Resume actions"><a class="resume-download" href="digital-en.pdf" download="Gu Shuhao-Digital Transformation-2027-USST.pdf" aria-label="Download Digital Transformation resume PDF"><span aria-hidden="true">↓</span><b>Download PDF</b></a><nav class="resume-track-dock" aria-label="Switch resume track"><a data-resume-nav="ai" href="ai-test-en.html" aria-label="AI Test Development"><span>T</span><b>AI Test Development</b></a><a data-resume-nav="digital" href="digital-en.html" aria-label="Digital Transformation"><span>D</span><b>Digital Transformation</b></a><a data-resume-nav="agent" href="agent-en.html" aria-label="Agent Application Development"><span>A</span><b>Agent Application Development</b></a></nav><a class="resume-home" href="../../index.html" aria-label="Back to homepage"><span aria-hidden="true">↩</span><b>Back to Homepage</b></a><a class="resume-language" href="digital.html" aria-label="切换到中文简历"><span aria-hidden="true">中</span><b>中文</b></a></div>
   <script>
-    if (location.protocol === "file:") {
-      document.querySelectorAll('link[rel="stylesheet"]').forEach(link => { link.href = link.href.replace("/src/assets/", "/public/assets/"); });
-      document.querySelectorAll("img").forEach(image => { image.src = image.src.replace("/src/assets/", "/public/assets/"); });
-      const download = document.querySelector(".resume-download");
-      if (download) download.href = new URL("../../../public/resume/versions/" + download.getAttribute("href"), location.href).href;
-      const runtime = document.createElement("script");
-      runtime.src = new URL("../../../public/assets/resume-version.js?v=2", location.href).href;
-      document.body.append(runtime);
-    }
-  </script>
-  <script src="../../assets/resume-version.js?v=2"></script>
+    if (location.protocol === "file:") { document.querySelectorAll('link[rel="stylesheet"]').forEach(link => { link.href = link.href.replace("/src/assets/", "/public/assets/"); }); document.querySelectorAll("img").forEach(image => { image.src = image.src.replace("/src/assets/", "/public/assets/"); }); const download = document.querySelector(".resume-download"); if (download) download.href = new URL("../../../public/resume/versions/" + download.getAttribute("href"), location.href).href; const runtime = document.createElement("script"); runtime.src = new URL("../../../public/assets/resume-version.js?v=2", location.href).href; document.body.append(runtime); }
+  </script><script src="../../assets/resume-version.js?v=2"></script>
 </body>
 </html>
