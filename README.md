@@ -40,7 +40,7 @@ npm run preview
 - 央国企数字化简历：`docs/resume/versions/digital.html` / `docs/resume/versions/digital-en.html`
 - 完整经历简历：`docs/resume/overview.html`
 
-当前公开简历中的百度实习时间统一为 `2026.05 - 2026.08`，三个岗位版 HTML/PDF 与完整经历保持同步。
+主页与完整经历页按时间线显示百度实习至 `2026.08`；三份岗位版 HTML/PDF 按最新投递口径统一标注为 `2026.05 - 2026.09`。
 
 ## 目录结构
 

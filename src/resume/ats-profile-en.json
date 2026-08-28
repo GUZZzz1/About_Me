@@ -31,8 +31,7 @@
         "Designed a graph-first and full-text evidence workflow for a university-library literature search and Q&A scenario",
         "Audited, split, normalized, and recorded metadata while separating fact entities, candidate relationships, and source evidence",
         "Prepared Neo4j query data and section-aware PDF chunks with DOI, section, page, and coordinate provenance"
-      ],
-      "planned": ["Vectorization, answer generation, citation validation, and unsupported-answer refusal"]
+      ]
     }
   ]
 }
