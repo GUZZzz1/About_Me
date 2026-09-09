@@ -9,6 +9,7 @@
   "email": "1595916384@qq.com",
   "telephone": "+86-13761056216",
   "graduationYear": 2027,
+  "certificationsAndAwards": ["CET-6: 497", "Multiple university scholarships", "Participated in Internet+ innovation and entrepreneurship competitions", "Lanqiao Cup Shanghai Municipal Second Prize"],
   "skills": ["Python", "TypeScript", "Node.js", "JavaScript", "Flask", "Vue 3", "PostgreSQL", "Playwright", "Electron E2E", "API testing", "Automation testing", "Log analysis", "Browser Agent", "LLM evaluation", "YAML E2E", "DOM inspection", "Failure attribution", "Performance stability testing"],
   "education": [
     {"institution": "University of Shanghai for Science and Technology", "department": "School of Optical-Electronic and Computer Engineering", "degree": "Master's", "fieldOfStudy": "Computer Science and Technology", "startDate": "2024-09", "endDate": "2027-06", "academicStanding": "Top 10%", "researchLabExperience": false},

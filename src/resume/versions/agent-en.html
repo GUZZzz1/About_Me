@@ -13,4 +13,13 @@
     if (location.protocol === "file:") { document.querySelectorAll('link[rel="stylesheet"]').forEach(link => { link.href = link.href.replace("/src/assets/", "/public/assets/"); }); document.querySelectorAll("img").forEach(image => { image.src = image.src.replace("/src/assets/", "/public/assets/"); }); const download = document.querySelector(".resume-download"); if (download) download.href = new URL("../../../public/resume/versions/" + download.getAttribute("href"), location.href).href; const runtime = document.createElement("script"); runtime.src = new URL("../../../public/assets/resume-version.js?v=2", location.href).href; document.body.append(runtime); }
   </script><script src="../../assets/resume-version.js?v=2"></script>
 </body>
+<script>
+(() => {
+  const summary = document.querySelector('.profile-summary .summary');
+  if (summary) summary.innerHTML = '<ul class="summary-points"><li>I focus on Browser Agent development and Agent quality, including page-state retrieval, action execution, result checks, and failure replay.</li><li>I use Playwright, logs, and screenshots to reproduce issues step by step and locate failed stages.</li><li>I also have Python, TypeScript, and web application development experience to support work across development, testing, and diagnosis.</li></ul>';
+  document.querySelectorAll('.company').forEach((node) => { if (node.textContent.trim() === 'Shanghai HuanDian Information Technology Co., Ltd.') node.textContent += ' (Bilibili)'; });
+  const education = document.querySelector('.education-section .edu-list');
+  if (education && !document.querySelector('.edu-extra')) { const extra = document.createElement('div'); extra.className = 'edu-extra'; extra.textContent = 'CET-6: 497 | Multiple university scholarships | Participated in Internet+ innovation and entrepreneurship competitions | Lanqiao Cup Shanghai Municipal Second Prize'; education.after(extra); }
+})();
+</script>
 </html>

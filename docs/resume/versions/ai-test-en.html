@@ -13,6 +13,12 @@
   "email": "1595916384@qq.com",
   "telephone": "+86-13761056216",
   "graduationYear": 2027,
+  "certificationsAndAwards": [
+    "CET-6: 497",
+    "Multiple university scholarships",
+    "Participated in Internet+ innovation and entrepreneurship competitions",
+    "Lanqiao Cup Shanghai Municipal Second Prize"
+  ],
   "skills": [
     "Python",
     "TypeScript",
@@ -255,4 +261,19 @@
     if (location.protocol === "file:") { document.querySelectorAll('link[rel="stylesheet"]').forEach(link => { link.href = link.href.replace("/src/assets/", "/public/assets/"); }); document.querySelectorAll("img").forEach(image => { image.src = image.src.replace("/src/assets/", "/public/assets/"); }); const download = document.querySelector(".resume-download"); if (download) download.href = new URL("../../../public/resume/versions/" + download.getAttribute("href"), location.href).href; const runtime = document.createElement("script"); runtime.src = new URL("../../../public/assets/resume-version.js?v=2", location.href).href; document.body.append(runtime); }
   </script><script src="../../assets/resume-version.js?v=2"></script>
 </body>
+<script>
+(() => {
+  const track = document.body.dataset.resumeTrack;
+  const summary = document.querySelector('.profile-summary .summary');
+  const copy = track === 'agent'
+    ? ['I focus on Browser Agent development and Agent quality, including page-state retrieval, action execution, result checks, and failure replay.', 'I use Playwright, logs, and screenshots to reproduce issues step by step and locate failed stages.', 'I also have Python, TypeScript, and web application development experience to support work across development, testing, and diagnosis.']
+    : track === 'digital'
+      ? ['I have worked on web application development, AI application testing, and multi-platform feature verification.', 'My experience covers requirements, page behavior, APIs, data results, integration testing, and issue diagnosis, using Python/Flask, TypeScript/Node.js, and Vue 3.', 'I can follow an issue from user-visible behavior to API responses, logs, and screenshots, and support integration and delivery.']
+      : ['I focus on AI application quality and test development, including Agent behavior, long-term memory, multi-platform features, E2E automation, and model-service stability.', 'I also have web development experience with Python/Flask, TypeScript/Node.js, Vue 3, Browser-Use, and Playwright.', 'When an issue appears, I reproduce it step by step using page behavior, API responses, logs, screenshots, and test reports.'];
+  if (summary) summary.innerHTML = `<ul class="summary-points">${copy.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+  document.querySelectorAll('.company').forEach((node) => { if (node.textContent.trim() === 'Shanghai HuanDian Information Technology Co., Ltd.') node.textContent += ' (Bilibili)'; });
+  const education = document.querySelector('.education-section .edu-list');
+  if (education && !document.querySelector('.edu-extra')) { const extra = document.createElement('div'); extra.className = 'edu-extra'; extra.textContent = 'CET-6: 497 | Multiple university scholarships | Participated in Internet+ innovation and entrepreneurship competitions | Lanqiao Cup Shanghai Municipal Second Prize'; education.after(extra); }
+})();
+</script>
 </html>

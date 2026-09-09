@@ -13,6 +13,12 @@
   "email": "1595916384@qq.com",
   "telephone": "+86-13761056216",
   "graduationYear": 2027,
+  "certificationsAndAwards": [
+    "CET-6: 497",
+    "Multiple university scholarships",
+    "Participated in Internet+ innovation and entrepreneurship competitions",
+    "Lanqiao Cup Shanghai Municipal Second Prize"
+  ],
   "skills": [
     "Python",
     "TypeScript",
@@ -255,4 +261,13 @@
     if (location.protocol === "file:") { document.querySelectorAll('link[rel="stylesheet"]').forEach(link => { link.href = link.href.replace("/src/assets/", "/public/assets/"); }); document.querySelectorAll("img").forEach(image => { image.src = image.src.replace("/src/assets/", "/public/assets/"); }); const download = document.querySelector(".resume-download"); if (download) download.href = new URL("../../../public/resume/versions/" + download.getAttribute("href"), location.href).href; const runtime = document.createElement("script"); runtime.src = new URL("../../../public/assets/resume-version.js?v=2", location.href).href; document.body.append(runtime); }
   </script><script src="../../assets/resume-version.js?v=2"></script>
 </body>
+<script>
+(() => {
+  const summary = document.querySelector('.profile-summary .summary');
+  if (summary) summary.innerHTML = '<ul class="summary-points"><li>I have worked on web application development, AI application testing, and multi-platform feature verification.</li><li>My experience covers requirements, page behavior, APIs, data results, integration testing, and issue diagnosis, using Python/Flask, TypeScript/Node.js, and Vue 3.</li><li>I can follow an issue from user-visible behavior to API responses, logs, and screenshots, and support integration and delivery.</li></ul>';
+  document.querySelectorAll('.company').forEach((node) => { if (node.textContent.trim() === 'Shanghai HuanDian Information Technology Co., Ltd.') node.textContent += ' (Bilibili)'; });
+  const education = document.querySelector('.education-section .edu-list');
+  if (education && !document.querySelector('.edu-extra')) { const extra = document.createElement('div'); extra.className = 'edu-extra'; extra.textContent = 'CET-6: 497 | Multiple university scholarships | Participated in Internet+ innovation and entrepreneurship competitions | Lanqiao Cup Shanghai Municipal Second Prize'; education.after(extra); }
+})();
+</script>
 </html>
