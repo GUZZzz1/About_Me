@@ -1,4 +1,5 @@
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isEnglishHomepage = new URLSearchParams(window.location.search).get("lang") === "en";
 
 const groupMeta = {
   dev: { title: "开发工程", code: "开发", x: 25, y: 64, color: "#efc55a" },
@@ -122,6 +123,213 @@ const experienceData = {
     scope: "78 个测试点及 67 通过、3 失败、8 待确认来自 Mate 80 的指定回归轮次；多设备结果按设备、系统、安装方式、账号、权限与网络分别记录。"
   }
 };
+
+const capabilityEnglish = {
+  "dev-python": ["Python / Flask", "Backend and tools", "Python and Flask used in business APIs, evaluation runners and test utilities."],
+  "dev-ts": ["TypeScript / Node", "Tool services", "TypeScript and Node.js for Agent tools, browser actions and test-framework services."],
+  "dev-vue": ["Vue 3", "Admin UI", "Vue 3 and Element Plus for management pages, forms and result views."],
+  "dev-rest": ["REST / Swagger", "API contracts", "RESTful APIs, Swagger contracts and debugging across request, response and state changes."],
+  "dev-data": ["SQLAlchemy / SQL", "Data model", "PostgreSQL data models and SQLAlchemy access, with attention to persistence and business state."],
+  "dev-browseruse": ["Browser-Use extensions", "Controller / Action", "Browser-Use action and tool extensions for live-streaming Web scenarios."],
+  "dev-dom": ["DOM / JS / XPath", "Page state", "DOM and JavaScript injection, element indexes and XPath mappings for execution context."],
+  "dev-playwright": ["Playwright delivery", "Script generation", "Turning verified Agent action sequences into repeatable Playwright scripts."],
+  "dev-report": ["HTML reporting", "Result views", "Readable reports for metrics, trends, failure types and execution evidence."],
+  "test-yaml": ["YAML E2E Runner", "Deterministic execution", "A model-planned, YAML-described and deterministic-runner E2E workflow."],
+  "test-schema": ["Schema / Assertion", "Case constraints", "Schema validation, layered assertions, cleanup and reports for automation quality."],
+  "test-trace": ["Trace / Artifact", "Execution evidence", "Logs, screenshots, traces, environment snapshots and artifacts for failure replay."],
+  "test-failure": ["Failure attribution", "Triage and closure", "Separating product, case, framework, permission, service and flaky failures."],
+  "test-release": ["P0 / Release regression", "Release quality", "Mobile P0, release regression, core flows and test-document delivery."],
+  "test-mobile": ["HarmonyOS / ADB / Charles", "Mobile evidence", "Multi-device HarmonyOS checks with ADB, packet capture and logs."],
+  "test-telemetry": ["Telemetry data path", "Event validation", "Validation from user action to client event, upload and platform query."],
+  "test-permission": ["Permission / Tenant / Sandbox", "State matrix", "State validation across accounts, tenants, seats, credits, files and sandboxes."],
+  "test-state": ["Session / State isolation", "Concurrency and recovery", "Isolation, recovery and cleanup for tasks, sessions, workspaces and users."],
+  "test-context": ["Long-context testing", "Compression and boundaries", "Long input, context compression, multi-turn memory and cross-platform behavior."],
+  "test-performance": ["Performance / Concurrency", "Stability metrics", "Concurrency, endurance, response time, resource curves and tail latency."],
+  "test-api": ["API automation / gates", "Layered regression", "Layered API regression, time-cost governance, release gates and result write-back."],
+  "ai-browser": ["Browser Agent", "End-to-end loop", "Page state, LLM planning, structured Actions, browser execution and assertions."],
+  "ai-context": ["Context engineering", "Context control", "Component filtering, DOM trimming and prompt refinement for cost and latency."],
+  "ai-loop": ["Agent Loop", "Retry / Stop", "Bounded retries, step limits, wait conditions and human escalation for safe execution."],
+  "ai-memory": ["Long-term memory evaluation", "Write and recall", "Memory injection, distractor turns and recall verification for AI conversation."],
+  "ai-multimodal": ["Multimodal QA evaluation", "OCR to output", "Layered checks from OCR and reasoning to orchestration, format and usability."],
+  "ai-judge": ["LLM Judge / Rubric", "Open-ended decisions", "Rule, parser, state-diff and LLM Judge layers with human Gold calibration."],
+  "ai-benchmark": ["Agent benchmarks", "Offline to production", "Mapping GAIA, TAU-Bench and AgentRewardBench ideas to business evaluation."],
+  "ai-harness": ["Agent Harness / Runtime", "State and governance", "Task, State, Tool, Trace, Artifact, Evaluator and Runtime controls for Agent behavior."],
+  "ai-rag": ["RAG / Knowledge lifecycle", "Knowledge governance", "Hybrid retrieval, source provenance, freshness, permissions and feedback loops."],
+  "ai-skill": ["Skill / MCP / Plugin", "Tool ecosystem", "Skill lifecycle, trigger boundaries, permissions, compatibility and release gates."],
+  "ai-infra": ["Inference Infra / Multi-Agent", "Systems view", "KV cache, model routing, inference systems and multi-Agent governance from a testing view."],
+};
+
+const experienceEnglish = {
+  fengtao: {
+    kicker: "2025.06 — 2025.09 / Full-stack development",
+    title: "Fengtao Asset Management · Full-stack Development Intern",
+    summary: "Contributed to a quantitative factor-management platform, connecting factor submission, approval, computation and result presentation into one business flow.",
+    tags: ["Vue 3", "Flask", "SQLAlchemy", "PostgreSQL", "Swagger"],
+    metrics: [{ value: "Full stack", label: "Business flow" }, { value: "4 areas", label: "Core modules" }],
+    sections: [
+      { title: "Business context", text: "The platform supports a quantitative research workflow. The main challenge was keeping business state, API contracts and persistence consistent across submission, approval, computation and result views." },
+      { title: "My contribution", bullets: ["Contributed to factor submission, approval, metadata and computation-result pages.", "Worked with Flask and SQLAlchemy on RESTful APIs, backend flows and data models.", "Maintained Swagger contracts, supported integration debugging and handled form and state-display issues."] },
+      { title: "Technical flow", flow: "Vue 3 / Element Plus → RESTful API / Swagger → Flask / SQLAlchemy → PostgreSQL / DolphinDB computation" },
+      { title: "Verification and delivery", bullets: ["Cross-checked API responses, service logs and database state.", "Traced slow responses and integration issues from frontend request to persisted state.", "Used Git/Gogs, Jira and daily coordination to move work through delivery."] },
+      { title: "Engineering takeaway", text: "This experience built my foundation in business state, API contracts and persistence. I later reused the same way of thinking when validating Agent side effects and cross-layer test results." }
+    ]
+  },
+  aiq: {
+    kicker: "2025.09 — 2025.11 / LLM application evaluation",
+    title: "AIQ Information · AI Application Quality",
+    summary: "Worked around long-term memory, multimodal education QA and model-service stability, turning open-ended model behavior into executable evaluation flows and reports.",
+    tags: ["Long-term memory", "Multimodal evaluation", "Concurrency", "Badcase", "Reports"],
+    metrics: [{ value: "8 types", label: "Memory content" }, { value: "4 levels", label: "Write intent" }, { value: "60", label: "Concurrent load" }, { value: "60 min", label: "Endurance" }],
+    sections: [
+      { title: "Business context", text: "The product needed to remember durable user information, apply it in the right context and avoid incorrect recall or privacy leakage. Education QA also required OCR, reasoning, orchestration and output-format failures to be separated." },
+      { title: "Memory evaluation", bullets: ["Separated user profile, preferences, experience, goals, temporary information and sensitive content.", "Covered direct recall, updates, ambiguity, multi-memory reasoning and negative cases.", "Combined rule matching with manual review for open-ended semantics."] },
+      { title: "Evaluation flow", flow: "Memory injection → distractor turns → recall query → matching → manual review → Badcase report" },
+      { title: "Performance and stability", bullets: ["Participated in a 60-concurrency, 60-minute model-service endurance test.", "Recorded success, latency and abnormal returns, then compared them with CPU and memory curves.", "Developed a multi-user evaluation flow and produced HTML reports for accuracy, efficiency and decay trends."] },
+      { title: "Engineering takeaway", text: "Quality, service behavior and evaluator behavior need separate evidence. Structured fields can use deterministic checks, while semantic cases need a rubric and human calibration." }
+    ]
+  },
+  bilibili: {
+    kicker: "2025.11 — 2026.03 / Browser Agent",
+    title: "Bilibili · Agent Development Intern",
+    summary: "Contributed to a Browser-Use based live-streaming Web Agent, connecting natural-language test documents with page state, model planning, structured actions, assertions and replayable scripts.",
+    tags: ["Browser-Use", "Context engineering", "Agent loop", "Playwright", "Trace"],
+    metrics: [{ value: "90%+", label: "Key-component recognition" }, { value: "78%", label: "Overall case execution" }, { value: "20s+ → 9s", label: "Average step time" }, { value: "5000 → 2000", label: "System-prompt tokens" }],
+    sections: [
+      { title: "Business context", text: "Live-streaming pages contain dynamic components, icon-only controls, hover actions, dialogs and asynchronous loading. The project explored how to use model planning for exploration while turning verified paths into repeatable automation." },
+      { title: "Execution architecture", flow: "Test document → DOM / page state → LLM planning → structured Action → Controller / Tool → assertion → Playwright script and artifacts" },
+      { title: "My contribution", bullets: ["Contributed to Controller / Action extensions, DOM and JavaScript injection, element indexes and XPath mapping.", "Added hover, visibility waits and composite actions for dynamic page interactions.", "Preserved screenshots, GIFs, logs and assertions around replayable action sequences."] },
+      { title: "Context and performance", bullets: ["Filtered task-relevant components and trimmed irrelevant DOM context.", "Refined system prompts and action output while monitoring quality and execution cost.", "The public figures require original-report verification before being treated as final metrics."] },
+      { title: "Engineering takeaway", text: "A runtime Agent needs constraints around actions, state, assertions, retries and evidence. The reusable value is the quality loop around the model, not the model call by itself." }
+    ]
+  },
+  baidu: {
+    kicker: "2026.05 — 2026.08 / Agent quality engineering",
+    title: "Baidu · AI Test Development Intern (DuMate)",
+    summary: "Worked across account, context, tools, permissions, asynchronous tasks and multi-platform state to support end-to-end validation, automation and release quality.",
+    tags: ["Agent quality", "YAML E2E", "Execution evidence", "HarmonyOS", "Release regression"],
+    metrics: [{ value: "7", label: "Mobile quality flows" }, { value: "4", label: "HarmonyOS devices" }, { value: "78", label: "Single-round cases" }, { value: "6", label: "Scheduler combinations" }],
+    sections: [
+      { title: "Product and quality scope", text: "DuMate combines accounts and permissions, an Agent engine, Skills and tools, file and browser execution, asynchronous tasks, device coordination and history. Quality therefore includes final output, execution process and real side effects." },
+      { title: "End-to-end validation", flow: "Preconditions → Agent / tool execution → state changes → result and side effects → recovery and cleanup → report and retest" },
+      { title: "Desktop E2E", bullets: ["Participated in E2E cases and execution-flow work using model-assisted planning, YAML steps and a deterministic runner.", "Worked across schema validation, ScenarioRunner, StepExecutor, ProductAdapter, assertions, cleanup and reports.", "Covered stateful scenarios such as parallel tasks, interruption recovery, workspace isolation, permission changes and scheduled tasks."] },
+      { title: "Mobile and release quality", bullets: ["Participated in Android, iOS and multiple HarmonyOS device/version regression work.", "Used ADB, Charles, client logs and service evidence to investigate installation, login, upload, notification and telemetry issues.", "Supported P0/release regression, telemetry checks and retest follow-up."] },
+      { title: "Engineering takeaway", text: "Agent testing is about constructing state, constraining tools, checking side effects and preserving replayable evidence. Model reasoning can help with planning; schemas, runners, assertions and cleanup make execution dependable." }
+    ]
+  }
+};
+
+const photoEnglish = {
+  "一起完成一件事": "Building together", "光线经过窗边": "Light by the window", "镜面里的自己": "A self portrait",
+  "落日抵达天际": "Sunset at the horizon", "沿林间继续向前": "Along the forest path", "花开在湖岸": "Flowers by the lake",
+  "抬头看见天光": "Looking up to the sky", "沿湖慢慢走": "Walking beside the lake", "暮色落在湖面": "Dusk on the water",
+  "树梢之外": "Beyond the treetops", "云层染上紫色": "Violet clouds", "山海之间": "Between mountain and sea",
+  "月亮升起以后": "After moonrise", "灯光长成森林": "A forest of lights", "城市亮起之后": "After the city lights up",
+  "越过海港上空": "Above the harbor", "船停在港湾": "Boats in the harbor", "列车穿过山城": "Train through the mountain city",
+  "俯瞰一座城": "Looking over the city", "时间爬上墙面": "Time on the wall", "桥通向海的另一边": "A bridge to the sea",
+  "走进湖上薄雾": "Into the lake mist", "雨落石桥": "Rain on the stone bridge", "远山藏进雾里": "Mountains in the mist",
+  "柳岸之外的塔影": "Pagoda beyond the willows", "檐角与塔": "Eaves and pagoda", "茶山一层一层展开": "Layers of tea hills",
+  "风机立在雾海": "Wind turbines in the mist", "雨落在老街上": "Rain on the old street", "云雾压低山脊": "Clouds over the ridge",
+  "雪水流进湖里": "Snowmelt into the lake", "湖泊贴着山谷展开": "A lake along the valley", "林间遇见一位住客": "A forest encounter",
+  "雪峰从云层露面": "Snow peak through clouds", "山色落在亭后": "Mountain light behind the pavilion", "沿老街望向江面": "Old street by the river",
+  "江边晒太阳的猫": "A cat by the river", "桥与轨道叠在一座城": "Bridges and tracks", "落日沉到城边": "Sunset by the city",
+  "大树接住夕阳": "A tree holds the sunset", "湖岸的冬日层次": "Winter layers by the lake", "水边小屋": "A house by the water",
+  "树影后面的城市": "City behind the trees", "街区亮起暖光": "Warm lights in the neighborhood", "穿过傍晚的街道": "Through the evening street",
+  "晚归路上的蓝": "Blue on the way home", "雨后留一张空椅": "An empty chair after rain", "花园里的小角色": "A small garden visitor",
+  "云下的城市轮廓": "City under the clouds", "树下的一小片日常": "A quiet patch of daily life", "夜里亮起的花": "Flowers at night",
+  "住区里的秋色": "Autumn in the neighborhood", "花丛里的两位访客": "Two garden visitors", "把路程画成轨迹": "Tracing the ride",
+  "穿过林间小路": "Through the forest trail", "途中停靠一会儿": "A stop along the way", "两辆车，一段路": "Two bikes, one road",
+  "雨落园区": "Rain on campus", "园区的日常视角": "A campus view", "窗外的上海": "Shanghai outside the window",
+  "夜色点亮园区": "Campus after dark", "年末的工作日": "A year-end workday", "文化墙上的热爱": "Passion on the wall",
+  "节日陈列细节": "A festive detail", "小电视，放大": "The little TV", "办公区的一角": "A corner of the office",
+  "大厅里的机甲": "Mecha in the lobby", "下班路上的城市节奏": "The city after work"
+};
+
+function applyEnglishHomepage() {
+  if (!isEnglishHomepage) return;
+  document.documentElement.lang = "en";
+  document.title = "Gu Shuhao | AI Quality Engineering";
+  const description = document.querySelector('meta[name="description"]');
+  if (description) description.content = "Gu Shuhao's portfolio, focused on AI test development, Agent quality engineering and LLM application evaluation.";
+  const setText = (selector, value) => { const node = document.querySelector(selector); if (node) node.textContent = value; };
+  const setAttr = (selector, attr, value) => { const node = document.querySelector(selector); if (node) node.setAttribute(attr, value); };
+  setAttr(".wordmark", "aria-label", "Back to homepage");
+  setText(".site-header p", "AI Quality Engineering · Class of 2027");
+  document.querySelectorAll(".site-language a").forEach(link => link.classList.toggle("is-active", link.lang === "en"));
+  const language = document.querySelector('.site-language a[lang="zh-CN"]');
+  if (language) language.href = "index.html?lang=zh" + (location.hash || "#top");
+  const english = document.querySelector('.site-language a[lang="en"]');
+  if (english) english.href = "index.html?lang=en" + (location.hash || "#top");
+  setText(".eyebrow", "AI application testing / Agent quality / Model evaluation");
+  setText("#hero-title a", "Gu Shuhao");
+  setAttr("#hero-title a", "aria-label", "Open Gu Shuhao's resume center");
+  setText(".hero-role", "Turning uncertain Agent behavior into reproducible, verifiable and regression-ready engineering evidence.");
+  setAttr(".portrait-link", "aria-label", "Open Gu Shuhao's resume center; move the pointer to change the portrait angle");
+  setAttr("#portrait-scene", "aria-label", "Move the pointer to change the portrait angle");
+  const status = document.querySelectorAll(".scene-status span");
+  if (status[0]) status[0].textContent = "PORTRAIT / 01";
+  if (status[1]) status[1].textContent = "Gu Shuhao";
+  setText(".portrait-hint strong", "You can tap me too");
+  setText(".portrait-hint small", "Choose a resume track");
+  setAttr(".portrait-hint", "aria-label", "Choose a resume track");
+  ["AI Test Development", "Digital Transformation", "Agent Application Development"].forEach((label, index) => {
+    const node = document.querySelectorAll(".portrait-track-option span")[index]; if (node) node.textContent = label;
+  });
+  setAttr(".portrait-track-options", "aria-label", "Choose a resume track");
+  setText(".photo-prism-meta span", "IMAGE STREAM");
+  const routeLabels = ["Overview", "Capabilities", "Experience", "Resume"];
+  document.querySelectorAll(".hero-route a span").forEach((node, index) => { node.textContent = routeLabels[index] || node.textContent; });
+  const meta = document.querySelectorAll(".hero-meta span");
+  if (meta[0]) meta[0].textContent = "Shanghai";
+  if (meta[1]) meta[1].textContent = "Class of 2027";
+  if (meta[2]) meta[2].textContent = "01 / 03";
+  setText("#capabilities .section-index", "01 / CAPABILITY ATLAS");
+  setText("#capability-title", "From engineering,\nto quality systems.");
+  setText("#capabilities .section-heading > p:last-child", "Starting with business systems, extending into automation and cross-platform quality, then moving into Agent execution and model evaluation.");
+  const paths = [
+    ["Engineering", "Business pages, APIs, data models and automation tools"],
+    ["Quality", "End-to-end regression, compatibility, performance and evidence"],
+    ["Agent evaluation", "Context, tool calls, execution loops and result decisions"]
+  ];
+  document.querySelectorAll(".capability-path").forEach((node, index) => { const [title, text] = paths[index] || []; if (title) node.querySelector("strong").textContent = title; if (text) node.querySelector("p").textContent = text; });
+  const filterLabels = ["All", "Development", "Testing", "Agent"];
+  document.querySelectorAll(".atlas-toolbar button").forEach((node, index) => { node.textContent = filterLabels[index] || node.textContent; });
+  setAttr(".atlas-toolbar", "aria-label", "Filter capability tracks");
+  setText(".atlas-root span", "CAPABILITIES"); setText(".atlas-root strong", "Gu Shuhao"); setText(".atlas-root small", "AI Quality Engineering");
+  setAttr(".knowledge-atlas", "aria-label", "AI quality engineering capability atlas");
+  ["Capability tracks", "Project experience", "Methods and technology"].forEach((label, index) => { const node = document.querySelectorAll(".evidence-legend span")[index]; if (node) node.lastChild.textContent = label; });
+  setText("#why .section-index", "02 / MOTIVATION"); setText("#why-title", "Testing uncertain\nsystems with certainty.");
+  setText(".why-statement", "Across development, automation and Agent evaluation, I keep returning to one question: ");
+  const statement = document.querySelector(".why-statement");
+  if (statement) statement.innerHTML = "Across development, automation and Agent evaluation, I keep returning to one question: <em>how do we turn uncertain behavior into reproducible, verifiable and regression-ready evidence?</em>";
+  const values = [["Evidence first", "Use traces, metrics and replay to support conclusions"], ["Clear boundaries", "State conditions, scope and metric definitions"], ["Engineering loop", "Stabilize the critical path, then preserve it as regression"], ["Human review", "Keep review where automated judgment is uncertain"]];
+  document.querySelectorAll(".why-values li").forEach((node, index) => { const [a, b] = values[index] || []; if (a) node.querySelector("strong").textContent = a; if (b) node.querySelector("span").textContent = b; });
+  setText("#experience .section-index", "03 / EXPERIENCE"); setText("#experience-title", "From business development\nto Agent quality engineering.");
+  setText("#experience .experience-heading > p:last-child", "Four roles connect business development, LLM application evaluation, Browser Agent work and broader Agent quality engineering.");
+  const expLabels = { fengtao: ["Fengtao Asset", "Full-stack Development Intern", "Frontend and backend · APIs and data models"], aiq: ["AIQ Information", "AI application quality / LLM evaluation", "Long-term memory · multimodal · service stability"], bilibili: ["Bilibili", "Agent Development Intern", "Page state · action execution · failure replay"], baidu: ["Baidu", "AI Test Development Intern (DuMate)", "Agent quality · E2E automation · release regression"] };
+  document.querySelectorAll(".experience-node").forEach(node => { const item = expLabels[node.dataset.experience]; if (!item) return; node.querySelector("p").textContent = item[0]; node.querySelector("h3").textContent = item[1]; node.querySelector("small").textContent = item[2]; });
+  setText("#life .section-index", "04 / IMAGE NOTES"); setText("#life-title", "Away from the screen,\nstill observing the world."); setText("#life .life-heading > p", "Work, travel and everyday fragments, kept as a record of space, rhythm and the road.");
+  const lifeFilters = ["All", "Personal", "Travel", "Internship", "Everyday"];
+  document.querySelectorAll("[data-life-filter]").forEach((node, index) => { const text = lifeFilters[index] || node.textContent; const count = node.querySelector("[data-life-count]")?.textContent || ""; node.firstChild.textContent = text + (count ? " " : ""); });
+  document.querySelectorAll(".life-card").forEach((card, index) => { const category = card.querySelector("span"); const title = card.querySelector("strong"); const original = title?.textContent || ""; if (category) category.textContent = category.textContent.replace("个人", "Personal").replace("旅行风景", "Travel").replace("实习记录", "Internship").replace("生活杂记", "Everyday").replace("骑行", "Cycling").replace("海岸", "Coast").replace("古街", "Old street").replace("山野", "Mountains").replace("山城", "Mountain city").replace("重庆", "Chongqing"); if (title) title.textContent = photoEnglish[original] || `Photo ${String(index + 1).padStart(2, "0")}`; const image = card.querySelector("img"); if (image) image.alt = title?.textContent || `Photo ${String(index + 1).padStart(2, "0")}`; });
+  setAttr(".life-gallery", "aria-label", "Automatically scrolling image gallery; hover to pause");
+  setAttr(".life-speed-control--previous", "aria-label", "Speed up toward the previous image"); setAttr(".life-speed-control--next", "aria-label", "Speed up toward the next image");
+  setText("#resume .section-index", "05 / RESUME"); setAttr("#resume .resume-language-entry", "aria-label", "Choose resume language");
+  const resumeLang = document.querySelectorAll(".resume-language-entry a"); if (resumeLang[0]) resumeLang[0].textContent = "中文"; if (resumeLang[1]) resumeLang[1].textContent = "EN";
+  setText(".resume-title-quick", "Quick view"); setText(".resume-title-deep", "Deep dive"); setAttr(".resume-title-quick", "aria-label", "Quickly view the resume tracks"); setAttr(".resume-title-deep", "aria-label", "Open the complete experience overview");
+  const resumeActions = [["Track", "One-page resume"], ["Full", "Complete experience"]]; document.querySelectorAll(".resume-actions > a").forEach((node, index) => { const pair = resumeActions[index]; if (!pair) return; node.querySelector("small").textContent = pair[0]; node.querySelector("span").textContent = pair[1]; });
+  setText(".resume-customize-note", "You can explore tracks too"); setText(".resume-customize-trigger small", "Custom"); setText(".resume-customize-trigger span", "Job tracks"); setAttr(".resume-track-options", "aria-label", "Choose a job-focused resume track");
+  document.querySelectorAll(".resume-track-option span").forEach((node, index) => { node.textContent = ["AI Test Development", "Digital Transformation", "Agent Application Development"][index] || node.textContent; });
+  setText(".site-footer strong", "Gu Shuhao"); setText(".site-footer span", "AI application testing · Agent quality · Model evaluation");
+  setAttr(".photo-lightbox-close", "aria-label", "Close image preview"); setAttr(".photo-lightbox-nav--previous", "aria-label", "View previous image"); setAttr(".photo-lightbox-nav--next", "aria-label", "View next image"); setAttr(".dialog-close", "aria-label", "Close details"); setAttr(".dialog-close", "title", "Close");
+  document.querySelectorAll('a[href="resume/index.html"], a[href="resume/overview.html"]').forEach(link => { link.href = link.getAttribute("href") + "?lang=en"; });
+  document.querySelectorAll('a[href^="resume/index.html?track="]').forEach(link => { link.href += "&lang=en"; });
+  Object.entries(capabilityEnglish).forEach(([id, values]) => { const item = capabilityData.find(node => node.id === id); if (!item) return; [item.title, item.short, item.summary] = values; });
+  Object.entries(experienceEnglish).forEach(([id, value]) => Object.assign(experienceData[id], value));
+  document.querySelectorAll(".atlas-node").forEach(node => { const item = capabilityData.find(value => value.id === node.dataset.id); if (!item) return; node.querySelector("strong").textContent = item.title; node.querySelector("small").textContent = item.short; node.setAttribute("aria-label", `${item.title}, ${item.short}`); });
+  Object.entries(groupMeta).forEach(([key, value]) => { const names = { dev: ["Engineering", "DEV"], test: ["Quality", "TEST"], ai: ["Agent Evaluation", "AGENT"] }[key]; if (names) { value.title = names[0]; value.code = names[1]; } });
+}
+
+applyEnglishHomepage();
 
 const dialog = document.querySelector("#detail-dialog");
 const dialogClose = dialog.querySelector(".dialog-close");
